@@ -1,20 +1,24 @@
 <template>
   <topbar></topbar>
+  <offer-header></offer-header>
+  <home></home>
   <div id="app">
-    <hello></hello>
-    <span>
-      <i class="fa fa-bath"></i>
-    </span>
+
   </div>
 </template>
 
 <script>
 import Hello from './components/Hello'
 import topbar from './components/topbar/topbar'
+import offerHeader from './components/header/header'
+import home from './components/home/home'
 export default {
   components: {
     'Hello':Hello,
-    'topbar':topbar
+    'topbar':topbar,
+    'offer-header':offerHeader,
+    'home':home
+
   }
 }
 </script>
