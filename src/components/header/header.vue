@@ -9,21 +9,21 @@
             </i-col>
 
             <i-col class="nav-wrapper" span="16">
-                <Menu mode="horizontal" :theme="light">
+                <Menu mode="horizontal" :theme="light" active-key="1">
                     <Menu-item key="1">
-                        <Icon type="ios-paper"></Icon>
+                        <!--<Icon type="ios-paper"></Icon>-->
                         首页
                     </Menu-item>
-                    <Menu-item key="2">
-                        <Icon type="ios-people"></Icon>
-                        公司
+                     <Menu-item key="2">
+                        <!--<Icon type="ios-people"></Icon>-->
+                        招聘会安排
                     </Menu-item>
                      <Menu-item key="3">
-                        <Icon type="ios-people"></Icon>
+                        <!--<Icon type="ios-people"></Icon>-->
                         公告
                     </Menu-item>
                      <Menu-item key="4">
-                        <Icon type="ios-people"></Icon>
+                        <!--<Icon type="ios-people"></Icon>-->
                         我的主页
                     </Menu-item>
                 </Menu>
