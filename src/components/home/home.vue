@@ -26,7 +26,9 @@
                   </Card>
                 </li>
             </ul>
+               <Page :current="2" :total="50" simple class="pager"></Page>
         </div>
+        
     </div>
 </template>
 
@@ -100,6 +102,12 @@
                 &:hover{
                     // border:1px solid #e92322;
                 }
+            }
+            .pager{
+                margin-top:30px;
+                margin-bottom:100px;
+                display:flex;
+                justify-content:center;
             }
         }
     }

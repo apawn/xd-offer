@@ -1,7 +1,6 @@
 <template>
     <div class="header">
         <Row>
-            <!--logo-->
             <i-col class="logo-wrapper" span="7" offset="1">
                 <a href="">
                     <h1 class="logo"><i class="fa fa-superpowers icon"></i>西电offer</h1>
@@ -9,21 +8,20 @@
             </i-col>
 
             <i-col class="nav-wrapper" span="16">
-                <Menu mode="horizontal" :theme="light" active-key="1">
-                    <Menu-item key="1">
-                        <!--<Icon type="ios-paper"></Icon>-->
+                <Menu mode="horizontal" :theme="light" >
+                    <Menu-item key="1" @click="routerGo('/home')">
                         首页
                     </Menu-item>
+
                      <Menu-item key="2">
-                        <!--<Icon type="ios-people"></Icon>-->
                         招聘会安排
                     </Menu-item>
+
                      <Menu-item key="3">
-                        <!--<Icon type="ios-people"></Icon>-->
-                        公告
+                          公告
                     </Menu-item>
+
                      <Menu-item key="4">
-                        <!--<Icon type="ios-people"></Icon>-->
                         我的主页
                     </Menu-item>
                 </Menu>
@@ -33,6 +31,7 @@
 </template>
 
 <script>
+    import VueRouter  from 'vur-router';
     export default {
         data() {
             return {
@@ -40,11 +39,13 @@
             };
         },
         methods:{
-
+            routerGo(href){
+                VueRouter.go(href);
+            }
         },  
 
         created() {
-
+          
         }
 
     }
@@ -58,12 +59,11 @@
         overflow:hidden;
         background-color: #fafafa;
         line-height: 80px;
-        
+        font-size:0;
         .logo-wrapper {
             .logo {
                 display: inline;
                 font-family: "Hiragino Sans GB", "Microsoft Yahei", SimSun, Arial, "Helvetica Neue", Helvetica;
-                letter-spacing: 1px;
                 font-size: 29px;
                 font-weight: 400;
                 .icon {
