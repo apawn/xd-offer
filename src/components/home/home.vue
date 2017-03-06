@@ -10,31 +10,20 @@
         </Row>
 
 
-        <!--<Carousel autoplay class="carousel">
-            <Carousel-item>
-                <div class="carousel-item">1</div>
-            </Carousel-item>
-            <Carousel-item>
-                <div class="carousel-item">2</div>
-            </Carousel-item>
-            <Carousel-item>
-                <div class="carousel-item">3</div>
-            </Carousel-item>
-            <Carousel-item>
-                <div class="carousel-item">4</div>
-            </Carousel-item>
-        </Carousel>-->
-
-        <div class="job-list">
-            <ul>
-                <li v-for=" item in companyList">
-                   <a href="">
-                        {{item.name}}
-                   </a>
-                   {{item.category}}
-                   {{item.nature}}
-                   {{item.city}}
-                   {{item.description}}
+        <div class="job-list-wrapper">
+            <ul class="job-list">
+                <li v-for=" item in companyList" >
+                  <Card class="job-item">
+                   <h4>
+                        <a href="" class="job-name">
+                                {{item.name}}
+                        </a>
+                        <h4>
+                        {{item.category}}
+                        {{item.nature}}
+                        {{item.city}}
+                        <p>{{item.description}}<p>
+                  </Card>
                 </li>
             </ul>
         </div>
@@ -92,13 +81,26 @@
                 color: #e92322;
             }
         }
-        .job-list {
+        .job-list-wrapper {
             margin: 0 auto;
             margin-top: 50px;
             width: 90%;
-            height: 500px;
-            border-top: 1px solid #e92322;
-            background: #f7f7f7;
+            overflow:hidden;
+            // border-top: 1px solid #e92322;
+            background: #fff;
+            
+
+            .job-item{
+                margin-top:20px;
+                box-sizing:border-box;
+                height:200px;
+                padding:10px 0 10px 20px;
+                background:#f7f7f7;
+                // border:1px solid #EDEDED;
+                &:hover{
+                    // border:1px solid #e92322;
+                }
+            }
         }
     }
 </style>
