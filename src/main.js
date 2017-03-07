@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import App from './App'
 import iView from 'iview'
+import store from './vuex/store.js'
 
 // 组件路由导入
 import home from './components/home/home'
@@ -18,15 +19,16 @@ Vue.use(iView);
 
 
 
-
-
 /* eslint-disable no-new */
-new Vue({
-    el: '#app',
-    component: App
-});
 
-var router = new VueRouter();
+let app = Vue.extend(App);
+// new Vue({
+//   el: '#app',
+//   store,
+//   render: h => h(App)
+// });
+
+export var router = new VueRouter();
 router.map({
   '/home': {
     component:home
@@ -36,5 +38,6 @@ router.map({
   }
 })
 
-router.start(App, '#app');
+router.start(app, '#app');
 router.go('/home');
+

@@ -8,20 +8,17 @@
             </i-col>
 
             <i-col class="nav-wrapper" span="16">
-                <Menu mode="horizontal" :theme="light" >
+                <Menu mode="horizontal" :theme="light">
                     <Menu-item key="1" @click="routerGo('/home')">
                         首页
                     </Menu-item>
-
-                     <Menu-item key="2">
+                    <Menu-item key="2">
                         招聘会安排
                     </Menu-item>
-
-                     <Menu-item key="3">
-                          公告
+                    <Menu-item key="3">
+                        公告
                     </Menu-item>
-
-                     <Menu-item key="4">
+                    <Menu-item key="4" @click="routerGo('/my')">
                         我的主页
                     </Menu-item>
                 </Menu>
@@ -31,7 +28,10 @@
 </template>
 
 <script>
-    import VueRouter  from 'vur-router';
+    import {routerGo} from '../../vuex/actions.js'
+import store from '../../vuex/store.js'
+
+
     export default {
         data() {
             return {
@@ -39,14 +39,20 @@
             };
         },
         methods:{
-            routerGo(href){
-                VueRouter.go(href);
-            }
         },  
 
         created() {
           
+        },
+        vuex : {
+            // getters:{
+            //     count : state => state.count
+            // },
+            actions:{
+                routerGo
+            }
         }
+        
 
     }
 </script>
@@ -56,10 +62,10 @@
         position: relative;
         height: 80px;
         width: 100%;
-        overflow:hidden;
+        overflow: hidden;
         background-color: #fafafa;
         line-height: 80px;
-        font-size:0;
+        font-size: 0;
         .logo-wrapper {
             .logo {
                 display: inline;

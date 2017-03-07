@@ -10,7 +10,10 @@
 import Hello from './components/Hello'
 import topbar from './components/topbar/topbar'
 import offerHeader from './components/header/header'
+
+import store from './vuex/store.js'
 export default {
+  store,
   components: {
     'Hello':Hello,
     'topbar':topbar,
