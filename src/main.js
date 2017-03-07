@@ -6,6 +6,8 @@ import store from './vuex/store.js'
 
 // 组件路由导入
 import home from './components/home/home'
+import meetingPlan from './components/meeting-plan/meeting-plan'
+import news from './component/news/news'
 import my from './components/my/my'
 
 
@@ -32,6 +34,12 @@ export var router = new VueRouter();
 router.map({
   '/home': {
     component:home
+  },
+  './meeting-plan': {
+    component:meetingPlan
+  },
+  '/news': {
+    component:news
   },
   '/my': {
     component:my

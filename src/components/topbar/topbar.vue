@@ -10,9 +10,9 @@
                 <a v-if="session" class="option">我的简历</a>
                 <a v-if="session" class="option">投递记录</a>
                 <a v-if="session" class="option">胡飞</a>
-                <a v-if="!session" class="option">登录</a>
+                <a v-if="!session" class="option" @click = "signIn('hello',hello)">登录</a>
                 <a v-if="!session" class="option">注册</a>
-                <a v-if="session" class="option">退出</a>
+                <a v-if="session" class="option" @click = "signOut()">退出</a>
             </i-col>
         </Row>
     </div>
@@ -20,27 +20,27 @@
 </template>
 
 <script>
+    import {signIn , signOut} from '../../vuex/actions.js'
     export default {
         data() {
-            return {
-                session:true
-            }
+            return {}
         },
         methods:{
-            toggle() {
-                this.session = !this.session;
-            }
+          
         },
         events:{
-            'signIn'(msg) {
+        },
 
+        vuex:{
+            getters:{
+                session: state=>state.session
             },
-            'signOut'(msg) {
 
+            actions :{
+                signIn ,
+                signOut
             }
         }
-
-
     }
 </script>
 

@@ -12,10 +12,10 @@
                     <Menu-item key="1" @click="routerGo('/home')">
                         首页
                     </Menu-item>
-                    <Menu-item key="2">
+                    <Menu-item key="2"  @click="routerGo('/meeting-plan')"> 
                         招聘会安排
                     </Menu-item>
-                    <Menu-item key="3">
+                    <Menu-item key="3" @click="routerGo('./news')">
                         公告
                     </Menu-item>
                     <Menu-item key="4" @click="routerGo('/my')">
@@ -29,7 +29,7 @@
 
 <script>
     import {routerGo} from '../../vuex/actions.js'
-import store from '../../vuex/store.js'
+    import store from '../../vuex/store.js'
 
 
     export default {
@@ -45,9 +45,6 @@ import store from '../../vuex/store.js'
           
         },
         vuex : {
-            // getters:{
-            //     count : state => state.count
-            // },
             actions:{
                 routerGo
             }
