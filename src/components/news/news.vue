@@ -1,9 +1,14 @@
-<template></template>
+<template>
+    newss...
+    
+</template>
 
 <script>
     export default {
-
+        
     }
 </script>
 
-<style lang="less"></style>
+<style lang="less">
+
+</style>

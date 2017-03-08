@@ -29,9 +29,6 @@
 
 <script>
     import {routerGo} from '../../vuex/actions.js'
-    import store from '../../vuex/store.js'
-
-
     export default {
         data() {
             return {
