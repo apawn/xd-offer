@@ -9,7 +9,6 @@
             </i-col>
         </Row>
 
-
         <div class="job-list-wrapper">
             <ul class="job-list">
                 <li v-for=" item in companyList" >

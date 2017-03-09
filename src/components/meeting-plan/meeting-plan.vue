@@ -16,7 +16,7 @@
 
 <script>
     import {routerGo}  from '../../vuex/actions'
-
+    
     export default {
           data () {
             return {

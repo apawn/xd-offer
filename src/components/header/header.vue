@@ -15,7 +15,7 @@
                     <Menu-item key="2"  @click="routerGo('/meeting-plan')"> 
                         招聘会安排
                     </Menu-item>
-                    <Menu-item key="3" @click="routerGo('./news')">
+                    <Menu-item key="3" @click="routerGo('./announcements')">
                         公告
                     </Menu-item>
                     <Menu-item key="4" @click="routerGo('/my')">

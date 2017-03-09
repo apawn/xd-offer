@@ -9,7 +9,7 @@ import home from './components/home/home'
 import meetingPlan from './components/meeting-plan/meeting-plan.vue'
 import news from './components/news/news'
 import my from './components/my/my'
-
+import signUp from './components/sign-up/sign-up'
 
 // 组件样式
 import 'font-awesome/less/font-awesome.less'
@@ -35,14 +35,17 @@ router.map({
   '/meeting-plan': {
     component:meetingPlan
   },
-  '/news': {
+  '/announcements': {
     component:news
   },
   '/my': {
     component:my
+  },
+  '/sign-up': {
+    component:signUp
   }
 })
 
 router.start(app, '#app');
-router.go('/home');
+router.go('/announcements');
 
