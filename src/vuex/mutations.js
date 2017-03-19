@@ -1,4 +1,4 @@
-import {router} from '../main.js'
+import {router} from '../router.js'
 
 export default {
     ROUTE_GO(state, href) {

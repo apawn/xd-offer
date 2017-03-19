@@ -1,9 +1,9 @@
 <template>
-    <div class="topbar container">
+    <div class="topbar">
         <Row>
-            <i-col span="6" class="company-wrapper">
-                <a class="company">我要招聘</a>
-            </i-col>
+        <i-col span="6" class="company-wrapper">
+        <a class="company">我要招聘</a>
+        </i-col>
 
             <i-col span="18" class="option-container">
                 <a v-if="session" class="option">消息</a>
@@ -108,25 +108,25 @@
         line-height: 30px;
         color: #000;
         clear: both;
-        &.container {
-            padding: 0 50px;
+        padding: 0 50px;
+        
+        .company-wrapper {
+            >.company {
+                color: #e92322;
+            }
         }
         .option-container {
             text-align: right;
             > .option {
                 color: #111;
                 margin-left: 8px;
-                &:not(: last-child) {
+                &:not(:last-child) {
                     border-right: 1px solid rgba(0, 0, 0, 0.3);
                     padding-right: 11px;
                 }
             }
         }
-        .company-wrapper {
-            >.company {
-                color: #e92322;
-            }
-        }
+
         .signin-title {
             font-size: 17px;
             text-align: center;

@@ -1,8 +1,7 @@
 import Vue from 'vue'
-import VueRouter from 'vue-router'
+import {router} from './router.js'
 import App from './App'
 import iView from 'iview'
-import store from './vuex/store.js'
 
 // 组件路由导入
 import home from './components/home/home'
@@ -17,7 +16,7 @@ import 'iview/dist/styles/iview.css';
 import './common/less/index.less'
 import './common/less/overright-iview.less'
 
-Vue.use(VueRouter);
+
 Vue.use(iView);
 
 
@@ -27,7 +26,6 @@ Vue.use(iView);
 let app = Vue.extend(App);
 
 
-export var router = new VueRouter();
 router.map({
   '/home': {
     component:home
