@@ -15,10 +15,10 @@
                     <Menu-item key="2"  @click="routerGo('/meeting-plan')"> 
                         招聘会安排
                     </Menu-item>
-                    <Menu-item key="3" @click="routerGo('./announcements')">
+                    <Menu-item key="3" @click="routerGo('/announcements')">
                         公告
                     </Menu-item>
-                    <Menu-item key="4" @click="routerGo('/my')">
+                    <Menu-item key="4"  @click="routerGo('/my')">
                         我的主页
                     </Menu-item>
                 </Menu>
@@ -36,6 +36,7 @@
             };
         },
         methods:{
+            
         },  
 
         created() {

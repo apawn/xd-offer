@@ -11,58 +11,45 @@
 
         <div class="job-list-wrapper">
             <ul class="job-list">
-                <li v-for=" item in companyList" >
-                  <Card class="job-item">
-                   <h4>
-                        <a href="" class="job-name">
-                                {{item.name}}
-                        </a>
+                <li v-for=" item in companyList">
+                    <Card class="job-item">
                         <h4>
-                        {{item.category}}
-                        {{item.nature}}
-                        {{item.city}}
-                        <p>{{item.description}}<p>
-                  </Card>
+                            <a class="job-name" @click="routerGoHere(item.id)"> {{item.name}} </a>
+                        </h4>
+                        {{item.category}} {{item.nature}} {{item.city}}
+                        <p>
+                            {{item.description}}
+                        </p>
+                    </Card>
                 </li>
             </ul>
-               <Page :current="2" :total="50" simple class="pager"></Page>
+            <Page :current="2" :total="50" simple class="pager"></Page>
         </div>
-        
+
     </div>
 </template>
 
 <script>
+    import {routerGo} from '../../vuex/actions.js'
     export default {
         data(){
             return {
-                // 公司数据结构, 名称, 介绍,
-                companyList:[{name: '晨星软件研发（深圳）有限公司',
-                    category:['电子','硬件'],
-                    nature:['外企'],
-                    city:['深圳'],
-                    description:'晨星半导体股份有限公司注册于英属开曼群岛，是一家专注于混合视频信号控制芯片技术研发的国际化高科技公司，公司已于去年在台湾成功上市。'
-                 },
-                 {name: '晨星软件研发（深圳）有限公司',
-                    category:['电子','硬件'],
-                    nature:['外企'],
-                    city:['深圳'],
-                    description:'晨星半导体股份有限公司注册于英属开曼群岛，是一家专注于混合视频信号控制芯片技术研发的国际化高科技公司，公司已于去年在台湾成功上市。'
-                 },
-                 {name: '晨星软件研发（深圳）有限公司',
-                    category:['电子','硬件'],
-                    nature:['外企'],
-                    city:['深圳'],
-                    description:'晨星半导体股份有限公司注册于英属开曼群岛，是一家专注于混合视频信号控制芯片技术研发的国际化高科技公司，公司已于去年在台湾成功上市。'
-                 },
-                 {name: '晨星软件研发（深圳）有限公司',
-                    category:['电子','硬件'],
-                    nature:['外企'],
-                    city:['深圳'],
-                    description:'晨星半导体股份有限公司注册于英属开曼群岛，是一家专注于混合视频信号控制芯片技术研发的国际化高科技公司，公司已于去年在台湾成功上市。'
-                 }
-                ]
+                }
+        },
+        methods:{
+            routerGoHere(itemId){
+                this.routerGo(`/home/${itemId}`);
+            }
+        },
+        vuex:{
+            getters:{
+                companyList: state=>state.companyList
+            },
+            actions:{
+                routerGo
             }
         }
+
     }
 
 </script>
@@ -86,27 +73,25 @@
             margin: 0 auto;
             margin-top: 50px;
             width: 90%;
-            overflow:hidden;
+            overflow: hidden;
             // border-top: 1px solid #e92322;
             background: #fff;
-            
-
-            .job-item{
-                margin-top:20px;
-                box-sizing:border-box;
-                height:200px;
-                padding:10px 0 10px 20px;
-                background:#f7f7f7;
+            .job-item {
+                margin-top: 20px;
+                box-sizing: border-box;
+                height: 200px;
+                padding: 10px 0 10px 20px;
+                background: #f7f7f7;
                 // border:1px solid #EDEDED;
-                &:hover{
+                &:hover {
                     // border:1px solid #e92322;
                 }
             }
-            .pager{
-                margin-top:30px;
-                margin-bottom:100px;
-                display:flex;
-                justify-content:center;
+            .pager {
+                margin-top: 30px;
+                margin-bottom: 100px;
+                display: flex;
+                justify-content: center;
             }
         }
     }

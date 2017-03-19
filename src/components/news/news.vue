@@ -4,7 +4,7 @@
             <li v-for="item in announcements">
                 <Row>
                     <i-col span="18" class="content">
-                        <a @click="routerHere(item.id)">{{item.content}}</a>
+                        <a @click="routerHere(item.id)">{{item.header}}</a>
                     </i-col>
                     <i-col span="6" class="time">
                         {{item.time}}
@@ -43,14 +43,14 @@
     .announcements {
         margin: 0 auto;
         margin-top: 45px;
-        width: 60%;
-        min-width: 600px;
+        width: 50%;
+        min-width: 400px;
         .content {}
         .time {
             text-align: right;
         }
         .pager {
-            margin-top: 30px;
+            margin-top: 50px;
             margin-bottom: 100px;
             display: flex;
             justify-content: center;
