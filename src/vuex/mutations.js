@@ -27,5 +27,14 @@ export default {
 
     SIGN_OUT(state) {
         state.session = null;
+    },
+
+    SET_CURRENT_PAGE(state, page, companies) {
+        state.currentPage = page;
+        state.currentCompanies = companies;
+    },
+
+    SET_TOTAL_PAGE(state, totalCount) {
+        state.totalCount = totalCount.count;
     }
 }
