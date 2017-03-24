@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import {router} from './router.js'
+import { router } from './router.js'
 import App from './App'
 import iView from 'iview'
 
@@ -10,9 +10,12 @@ import news from './components/news/news'
 import my from './components/my/my'
 import signUp from './components/sign-up/sign-up'
 
+// home 子路由
+import company from './components/company/company'
+
 // 组件样式
 import 'font-awesome/less/font-awesome.less'
-import 'iview/dist/styles/iview.css';   
+import 'iview/dist/styles/iview.css';
 import './common/less/index.less'
 import './common/less/overright-iview.less'
 
@@ -27,23 +30,30 @@ let app = Vue.extend(App);
 
 
 router.map({
+  '/': {
+    component: home
+  },
   '/home': {
-    component:home
+    component: home,
   },
   '/meeting-plan': {
-    component:meetingPlan
+    component: meetingPlan
   },
   '/announcements': {
-    component:news
+    component: news
   },
   '/my': {
-    component:my
+    component: my
   },
   '/sign-up': {
-    component:signUp
+    component: signUp
+  },
+  '/home/:companyname': {
+    name: 'company',
+    component: company
   }
 })
 
 router.start(app, '#app');
-router.go('/announcements');
+// router.go('/home');
 

@@ -15,8 +15,8 @@
                 <li v-for=" item in currentCompanies">
                     <Card class="job-item">
                         <h4>
-                                                                                                    <a class="job-name" @click="routerGoHere(item.name)"> {{item.name}} </a>
-                                                                                                </h4> {{item.category}} {{item.nature}} {{item.location}}
+                                                                                                                                    <a class="job-name" @click="companyDetail(item.name,item.email)"> {{item.name}} </a>
+                                                                                                                                </h4> {{item.category}} {{item.nature}} {{item.location}}
                         <p>
                             {{item.desc}}
                         </p>
@@ -35,18 +35,18 @@
 </template>
 
 <script>
-import { routerGo, getCurrentPage, getCompaniesCount } from '../../vuex/actions.js'
+import { routerGo, getCurrentPage, getCompaniesCount, setCurrentCompanyEmail } from '../../vuex/actions.js'
 export default {
     data() {
         return {
         }
     },
     methods: {
-        routerGoHere(itemId) {
+        companyDetail(itemId, email) {
+            setCurrentCompanyEmail(email);
             this.routerGo(`/home/${itemId}`);
         },
         pageChange(currentPage) {
-            console.log(currentPage);
             this.getCurrentPage(currentPage);
         }
     },
@@ -75,7 +75,9 @@ export default {
         actions: {
             routerGo,
             getCurrentPage,
-            getCompaniesCount
+            getCompaniesCount,
+            setCurrentEmail,
+
         }
     }
 

@@ -28,7 +28,6 @@ export const signIn = ({ dispatch }, username, password) => {
 }
 
 export const signOut = ({ dispatch }, username, password) => {
-
     return new Promise((resolve, reject) => {
         fetch("/api/loginOut", {
             method: 'POST'
@@ -38,7 +37,6 @@ export const signOut = ({ dispatch }, username, password) => {
             dispatch('SIGN_OUT');
         })
     })
-
 }
 
 
@@ -55,15 +53,12 @@ export const getCurrentPage = ({ dispatch }, page) => {
                 page: page
             })
         }).then(res => res.json()).then(res => {
-
             dispatch('SET_CURRENT_PAGE', page, res);
             resolve(res);
         }).catch(err => {
             reject(err);
         })
     })
-
-
 }
 export const getCompaniesCount = ({ dispatch }) => {
     return new Promise((resolve, reject) => {
@@ -74,7 +69,7 @@ export const getCompaniesCount = ({ dispatch }) => {
                 'Content-Type': 'application/json'
             }
         }).then(res => res.json()).then(res => {
-            dispatch('SET_TOTAL_PAGE', res);
+            dispatch('SET_TOTAL_COUNT', res);
             console.log(res);
             resolve(res);
         }).catch(err => {
@@ -82,3 +77,18 @@ export const getCompaniesCount = ({ dispatch }) => {
         })
     })
 }
+
+export const setCurrentCompanyEmail = ({ dispatch }, email) => {
+
+
+    return new Promise((resolve, reject) => {
+        fetch(`/api/${email}`, {
+            method: 'POST'
+        }).then(res => res.json).then(res = {
+
+        }).catch(err => {
+
+        })
+    })
+}
+

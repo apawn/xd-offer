@@ -2,12 +2,8 @@ import { router } from '../router.js'
 
 export default {
     ROUTE_GO(state, href, query) {
-        query = query || {}
         // router.go(href);
-        router.go({
-            path: href,
-            query: query
-        })
+        router.go(href);
 
     },
 
@@ -34,7 +30,11 @@ export default {
         state.currentCompanies = companies;
     },
 
-    SET_TOTAL_PAGE(state, totalCount) {
+    SET_TOTAL_COUNT(state, totalCount) {
         state.totalCount = totalCount.count;
+    },
+
+    SET_CURRENT_COMPANY(state, email) {
+        state.email = email;
     }
 }

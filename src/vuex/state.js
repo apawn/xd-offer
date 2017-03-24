@@ -109,10 +109,16 @@ export default {
             time: '2016-12-06'
         }
     ],
+    // 数据的总条数
     totalCount: 0,
-    currentPage: 0,
-    currentCompanies: []
+    // 当前页码
+    currentPage: 1,
+    // 当前页的工资
+    currentCompanies: [],
 
+    // 当前展示公司的详细邮箱  默认为 ""
+    currentCompanyEmail: "",
+    currentCompanyDetail
 }
 
 
