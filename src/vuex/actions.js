@@ -24,7 +24,6 @@ export const signIn = ({ dispatch }, username, password) => {
             reject(err);
         })
     })
-
 }
 
 export const signOut = ({ dispatch }, username, password) => {
@@ -42,7 +41,6 @@ export const signOut = ({ dispatch }, username, password) => {
 
 export const getCurrentPage = ({ dispatch }, page) => {
     return new Promise((resolve, reject) => {
-        console.log(page);
         fetch('/api/getCurrentPage', {
             method: 'POST',
             headers: {
@@ -70,7 +68,6 @@ export const getCompaniesCount = ({ dispatch }) => {
             }
         }).then(res => res.json()).then(res => {
             dispatch('SET_TOTAL_COUNT', res);
-            console.log(res);
             resolve(res);
         }).catch(err => {
             reject(err);
@@ -78,16 +75,23 @@ export const getCompaniesCount = ({ dispatch }) => {
     })
 }
 
-export const setCurrentCompanyEmail = ({ dispatch }, email) => {
-
-
+export const getCurrentCompanyDetail = ({ dispatch }, companyName) => {
     return new Promise((resolve, reject) => {
-        fetch(`/api/${email}`, {
-            method: 'POST'
-        }).then(res => res.json).then(res = {
-
+        fetch('/api/companydetail', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json, text/plain, */*',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                name: companyName
+            })
+        }).then(res => res.json()).then(res => {
+            dispatch('SET_CURRENT_COMPANY_DETAIL', res);
+            resolve(res);
         }).catch(err => {
-
+            dispatch('SET_CURRENT_COMPANY_DETAIL', {});
+            reject(err);
         })
     })
 }

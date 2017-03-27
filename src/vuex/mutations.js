@@ -34,7 +34,7 @@ export default {
         state.totalCount = totalCount.count;
     },
 
-    SET_CURRENT_COMPANY(state, email) {
-        state.email = email;
+    SET_CURRENT_COMPANY_DETAIL(state, currentCompany) {
+        state.currentCompany = currentCompany;
     }
 }

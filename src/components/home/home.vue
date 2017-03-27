@@ -15,9 +15,16 @@
                 <li v-for=" item in currentCompanies">
                     <Card class="job-item">
                         <h4>
-                                                                                                                                    <a class="job-name" @click="companyDetail(item.name,item.email)"> {{item.name}} </a>
-                                                                                                                                </h4> {{item.category}} {{item.nature}} {{item.location}}
-                        <p>
+                                                                                                                                          <a class="name" @click="companyDetail(item.name)"> {{item.name}}</a>
+                                                                                                                                        </h4>
+    
+                        <div class="location">
+                            <span>在招职位</span> <span class="border-right">{{item.position.length}}个</span>
+                            <span>招聘人数</span> <span class="border-right">{{item.number}}个</span>
+                            <span class="fa fa-map-marker"></span> {{item.location}}
+    
+                        </div>
+                        <p class="desc">
                             {{item.desc}}
                         </p>
                     </Card>
@@ -35,16 +42,20 @@
 </template>
 
 <script>
-import { routerGo, getCurrentPage, getCompaniesCount, setCurrentCompanyEmail } from '../../vuex/actions.js'
+import { routerGo, getCurrentPage, getCompaniesCount, getCurrentCompanyDetail } from '../../vuex/actions.js'
 export default {
     data() {
         return {
         }
     },
     methods: {
-        companyDetail(itemId, email) {
-            setCurrentCompanyEmail(email);
-            this.routerGo(`/home/${itemId}`);
+        companyDetail(name) {
+            this.getCurrentCompanyDetail(name).then(res => {
+                this.routerGo(`/home/${name}`);
+            }).catch(err => {
+                return;
+            })
+
         },
         pageChange(currentPage) {
             this.getCurrentPage(currentPage);
@@ -76,7 +87,7 @@ export default {
             routerGo,
             getCurrentPage,
             getCompaniesCount,
-            setCurrentEmail,
+            getCurrentCompanyDetail,
 
         }
     }
@@ -92,11 +103,9 @@ export default {
         margin: 0 auto;
         width: 60%;
         .search-label {
-            /*margin-right:5px;*/
             height: 32px;
             font-size: 25px;
             line-height: 32px;
-            /*text-align: left;*/
             color: #e92322;
         }
     }
@@ -109,9 +118,26 @@ export default {
         .job-item {
             margin-top: 20px;
             box-sizing: border-box;
-            height: 200px;
-            padding: 10px 0 10px 20px;
+            padding: 0px 15px 5px 15px;
             background: #f7f7f7;
+            .name {
+                font-size: 20px;
+                font-weight: 400;
+            }
+            .location {
+                margin-top: 5px;
+                font-size: 15px;
+                .border-right {
+                    margin-right: 10px;
+                    border-right: 1px solid #ddd;
+                    padding-right: 14px;
+                    color: #39f;
+                }
+            }
+            .desc {
+                margin-top: 5px;
+                font-size: 14px;
+            }
         }
         .pager {
             margin-top: 30px;

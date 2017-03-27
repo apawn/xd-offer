@@ -118,7 +118,7 @@ export default {
 
     // 当前展示公司的详细邮箱  默认为 ""
     currentCompanyEmail: "",
-    currentCompanyDetail
+    currentCompany: {}
 }
 
 
