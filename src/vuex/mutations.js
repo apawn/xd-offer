@@ -36,5 +36,9 @@ export default {
 
     SET_CURRENT_COMPANY_DETAIL(state, currentCompany) {
         state.currentCompany = currentCompany;
+    },
+
+    SET_SIGNIN_MODAL(state, signInModal) {
+        state.signInModal = signInModal;
     }
 }

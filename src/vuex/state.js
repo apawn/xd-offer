@@ -1,7 +1,8 @@
 export default {
     // 当前用户
     session: null,
-
+    // 是否弹出登录对话框
+    signInModal: false,
     // 招聘会信息
     meetingPlan: {
         // 标题

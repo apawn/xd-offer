@@ -26,6 +26,11 @@ export const signIn = ({ dispatch }, username, password) => {
     })
 }
 
+export const setSignInModal = ({ dispatch }, signInModal) => {
+    dispatch('SET_SIGNIN_MODAL', signInModal);
+}
+
+
 export const signOut = ({ dispatch }, username, password) => {
     return new Promise((resolve, reject) => {
         fetch("/api/loginOut", {
@@ -92,6 +97,29 @@ export const getCurrentCompanyDetail = ({ dispatch }, companyName) => {
         }).catch(err => {
             dispatch('SET_CURRENT_COMPANY_DETAIL', {});
             reject(err);
+        })
+    })
+}
+
+
+// 提交评价
+
+export const commentCompany = ({ dispatch }, email, content) => {
+    return new Promise((resolve, reject) => {
+        fetch('/api/commentcompany', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json, text/plain, */*',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                companyemail: email,
+                content: content
+            })
+        }).then(res => res.json).then(res => {
+
+        }).catch(err => {
+
         })
     })
 }

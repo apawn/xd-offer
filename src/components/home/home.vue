@@ -14,13 +14,10 @@
             <ul class="job-list">
                 <li v-for=" item in currentCompanies">
                     <Card class="job-item">
-                        <h4>
-                                                                                                                                          <a class="name" @click="companyDetail(item.name)"> {{item.name}}</a>
-                                                                                                                                        </h4>
-    
+                        <h4><a class="name" @click="companyDetail(item.name)"> {{item.name}}</a></h4>
                         <div class="location">
-                            <span>在招职位</span> <span class="border-right">{{item.position.length}}个</span>
-                            <span>招聘人数</span> <span class="border-right">{{item.number}}个</span>
+                            <span class="border-right">在招职位<i class="italic">{{item.position.length}}</i>个</span>
+                            <span class="border-right">招聘人数<i class="italic">{{item.number}}</i>个</span>
                             <span class="fa fa-map-marker"></span> {{item.location}}
     
                         </div>
@@ -131,12 +128,17 @@ export default {
                     margin-right: 10px;
                     border-right: 1px solid #ddd;
                     padding-right: 14px;
-                    color: #39f;
+                    .italic {
+                        margin: 0 5px;
+                        font-style: italic;
+                        color: #39f;
+                    }
                 }
             }
             .desc {
                 margin-top: 5px;
                 font-size: 14px;
+                text-indent: 24px;
             }
         }
         .pager {

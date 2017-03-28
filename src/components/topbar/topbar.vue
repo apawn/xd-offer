@@ -27,7 +27,7 @@
                    @click="signOut()">退出</a>
             </i-col>
             <!--登录对话框       -->
-            <Modal :visible.sync="signInModal"
+            <Modal :visible="signInModal"
                    width="350"
                    :mask-closable="false"
                    @on-ok="signInOk"
@@ -77,7 +77,7 @@
 </template>
 
 <script>
-import { signIn, signOut, routerGo } from '../../vuex/actions.js'
+import { signIn, signOut, routerGo, setSignInModal } from '../../vuex/actions.js'
 export default {
     data() {
         return {
@@ -94,19 +94,19 @@ export default {
                     { required: true, message: '请填写密码', trigger: 'blur' },
                 ]
             },
-            signInModal: false
         }
     },
     methods: {
         signPop() {
-            this.signInModal = true;
+            this.setSignInModal(true);
         },
         signInClick() {
+
             this.modal_loading = true;
             this.signInActions(this.formInline.user, this.formInline.password).then((res) => {
                 if (res.ok) {
                     this.$Message.success('登录成功');
-                    this.signInModal = false;
+                    this.setSignInModal(false);
                 } else {
                     this.$Message.success('登录失败');
                 }
@@ -116,21 +116,23 @@ export default {
             })
         },
         signInOk() {
-
         },
         signInCancel() {
+            this.setSignInModal(false);
         }
     },
 
     vuex: {
         getters: {
+            signInModal: state => state.signInModal,
             session: state => state.session
         },
 
         actions: {
             routerGo,
             signInActions: signIn,
-            signOut
+            signOut,
+            setSignInModal
         }
     }
 }
