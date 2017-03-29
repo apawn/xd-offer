@@ -116,11 +116,33 @@ export const commentCompany = ({ dispatch }, email, content) => {
                 companyemail: email,
                 content: content
             })
-        }).then(res => res.json).then(res => {
+        }).then(res => res.json()).then(res => {
+            dispatch('COMMENT_COMPANY', content);
+            resolve(res);
+        }).catch(err => {
+            reject(err);
+        })
+    })
+}
+
+export const deliveryActions = ({ dispatch }, _studentEmail, _companyemail, _position) => {
+    return new Promise((resolve, reject) => {
+        fetch('/api/delivery', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json, text/plain, */*',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                studentEmail: _studentEmail,
+                companyemail: _commentCompany,
+                position: -position
+            })
+        }).then(res => {
 
         }).catch(err => {
 
         })
-    })
+    });
 }
 

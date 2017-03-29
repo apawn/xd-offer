@@ -29,6 +29,12 @@
                 </li>
             </ul>
         </div>
+        <div class="contact">
+            <h4 class="border-left">联系方式</h4>
+            <div class="content"> <i class="fa fa-mobile-phone"></i> 联系电话 <span class="phone border-right">{{company.phone}}</span> <i class="fa fa-envelope-o fa-fw"></i> 邮箱 <span class="email">{{company.email}}</span>
+            </div>
+        </div>
+    
         <div class="comments">
             <h4 class="border-left">公司评价</h4>
             <ul class="list">
@@ -73,7 +79,22 @@ export default {
     methods: {
         comment() {
             if (this.user) {
-                this.commentCompany(this.company.email, this.content);
+                this.commentCompany(this.company.email, this.content).then(res => {
+                    this.$Message.success('评论成功');
+                    this.content = "";
+                })
+            } else {
+                this.setSignInModal(true);
+                return;
+            }
+        },
+        deliver(position) {
+            if (this.user) {
+                this.deliveryAction(this.user.email, this.company.email, position).then(res => {
+
+                }).catch(err => {
+
+                })
             } else {
                 this.setSignInModal(true);
                 return;
@@ -96,7 +117,8 @@ export default {
         actions: {
             getCurrentCompanyDetail,
             commentCompany,
-            setSignInModal
+            setSignInModal,
+            deliveryAction
         }
     }
 }
@@ -114,18 +136,18 @@ export default {
     }
     .option {
         margin-top: 10px;
-        .border-right {
-            margin-right: 10px;
-            border-right: 1px solid #ddd;
-            padding-right: 14px;
-        }
         .number {
             color: #39f;
             font-style: italic;
         }
     }
+    .border-right {
+        margin-right: 10px;
+        border-right: 1px solid #ddd;
+        padding-right: 14px;
+    }
     .border-left {
-        margin-top: 15px;
+        margin-top: 20px;
         border-left: 3px solid #39f;
         padding: 0 6px;
         font-size: 18px;
@@ -148,6 +170,15 @@ export default {
                 .job {
                     margin-top: 12px;
                 }
+            }
+        }
+    }
+    .contact {
+        .content {
+            margin-top: 15px;
+            .email,
+            .phone {
+                color: #39f;
             }
         }
     }

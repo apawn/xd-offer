@@ -37,8 +37,14 @@ export default {
     SET_CURRENT_COMPANY_DETAIL(state, currentCompany) {
         state.currentCompany = currentCompany;
     },
-
+    // 设置登录对话框是否显示
     SET_SIGNIN_MODAL(state, signInModal) {
         state.signInModal = signInModal;
+    },
+
+    COMMENT_COMPANY(state, content) {
+        state.currentCompany.comments.push({ content: content, time: new Date().toLocaleDateString() });
     }
+
+
 }
