@@ -125,7 +125,7 @@ export const commentCompany = ({ dispatch }, email, content) => {
     })
 }
 
-export const deliveryActions = ({ dispatch }, _studentEmail, _companyemail, _position) => {
+export const deliveryAction = ({ dispatch }, _studentEmail, _companyemail, _position) => {
     return new Promise((resolve, reject) => {
         fetch('/api/delivery', {
             method: 'POST',
@@ -135,13 +135,17 @@ export const deliveryActions = ({ dispatch }, _studentEmail, _companyemail, _pos
             },
             body: JSON.stringify({
                 studentEmail: _studentEmail,
-                companyemail: _commentCompany,
-                position: -position
+                companyemail: _companyemail,
+                position: _position
             })
-        }).then(res => {
-
+        }).then(res => res.json()).then(res => {
+            if (res.ok) {
+                if (res.company) {
+                    dispatch('SET_CURRENT_COMPANY_DETAIL', res.company);
+                }
+            }
         }).catch(err => {
-
+            return;
         })
     });
 }

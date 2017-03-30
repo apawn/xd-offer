@@ -15,12 +15,13 @@ import store from './vuex/store.js'
 export default {
   store,
   components: {
-    'Hello':Hello,
-    'topbar':topbar,
-    'offer-header':offerHeader,
+    'Hello': Hello,
+    'topbar': topbar,
+    'offer-header': offerHeader,
   }
 }
 </script>
 
 <style lang="less">
+
 </style>

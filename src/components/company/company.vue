@@ -21,10 +21,13 @@
                                 <span class="salary">月薪:<i>{{item.salary}}</i> </span>
                             </i-col>
                             <i-col span="6">
-                                <i-button type="primary">投递简历</i-button>
+                                <i-button @click="deliver(item.name)" //
+                                          :type="hasDelivered(item.name).type"
+                                          :disabled="hasDelivered(item.name).disabled">{{hasDelivered(item.name).content}}</i-button>
                             </i-col>
                         </Row>
-                        <p class="job">{{item.job}}</p>
+                        <p class="job"
+                           v-html="item.job"></p>
                     </Card>
                 </li>
             </ul>
@@ -68,12 +71,12 @@
 
 
 <script>
-import { getCurrentCompanyDetail, commentCompany, setSignInModal } from '../../vuex/actions.js'
+import { getCurrentCompanyDetail, commentCompany, setSignInModal, deliveryAction } from '../../vuex/actions.js'
 
 export default {
     data() {
         return {
-            content: ""
+            content: "",
         }
     },
     methods: {
@@ -91,14 +94,47 @@ export default {
         deliver(position) {
             if (this.user) {
                 this.deliveryAction(this.user.email, this.company.email, position).then(res => {
-
+                    this.$Message.success('投递成功');
                 }).catch(err => {
-
+                    this.$Message.success('投递失败');
                 })
             } else {
                 this.setSignInModal(true);
                 return;
             }
+        },
+
+        hasDelivered(position) {
+            if (!this.user) {
+                return {
+                    type: 'primary',
+                    content: '现在投递',
+                    disable: false
+                }
+            }
+            var positions = this.company.position,
+                flag,
+                receives;
+            for (let i = 0; i < positions.length; i++) {
+                if (positions[i].name === position) {
+                    receives = positions[i].received;
+                    for (let j = 0; j < receives.length; j++) {
+                        if (receives[j].studentEmail === this.user.email) {
+                            return {
+                                type: 'success',
+                                content: '已经投递',
+                                disabled: true
+                            }
+                        }
+                    }
+                }
+            }
+            return {
+                type: 'primary',
+                content: '现在投递',
+                disable: false
+            };
+
         }
     },
     created() {

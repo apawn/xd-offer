@@ -15,7 +15,7 @@
                 <a v-if="session"
                    class="option">投递记录</a>
                 <a v-if="session"
-                   class="option">胡飞</a>
+                   class="option">{{session.name}}</a>
                 <a v-if="!session"
                    class="option"
                    @click="signPop()">登录</a>
