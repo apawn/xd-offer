@@ -21,7 +21,7 @@
                                 <span class="salary">月薪:<i>{{item.salary}}</i> </span>
                             </i-col>
                             <i-col span="6">
-                                <i-button @click="deliver(item.name)" //
+                                <i-button @click="deliver(item.name)"
                                           :type="hasDelivered(item.name).type"
                                           :disabled="hasDelivered(item.name).disabled">{{hasDelivered(item.name).content}}</i-button>
                             </i-col>

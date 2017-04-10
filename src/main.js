@@ -31,7 +31,7 @@ let app = Vue.extend(App);
 
 router.map({
   '/': {
-    component: home
+    component: signUp
   },
   '/home': {
     component: home,

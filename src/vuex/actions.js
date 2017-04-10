@@ -150,3 +150,46 @@ export const deliveryAction = ({ dispatch }, _studentEmail, _companyemail, _posi
     });
 }
 
+
+// 得到验证码
+
+export const getVertifyCodeAction = ({ dispatch }, email) => {
+    return new Promise((resolve, reject) => {
+        fetch('/api/getvertifycode', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json, text/plain, */*',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                param: Math.random(2, 8),
+                email: email
+            })
+        }).then(res => res.json()).then(res => {
+
+            resolve(res);
+        }).catch(err => {
+            reject(err);
+        })
+    })
+}
+
+export const signUpAction = ({ dispatch }, email, code, password) => {
+    return new Promise((resolve, reject) => {
+        fetch('/api/signup', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json, text/plain, */*',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                param: Math.random(2, 8),
+                email: email
+            })
+        }).then(res => {
+
+        }).catch(err => {
+
+        })
+    });
+}

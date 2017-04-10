@@ -45,6 +45,4 @@ export default {
     COMMENT_COMPANY(state, content) {
         state.currentCompany.comments.push({ content: content, time: new Date().toLocaleDateString() });
     }
-
-
 }

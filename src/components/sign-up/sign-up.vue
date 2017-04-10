@@ -1,107 +1,147 @@
 <template>
     <div class="sign-up">
-        <!--一个模态对话框,只有邮箱验证才会通过             -->
     
-        <i-form :model="formItem"
-                :label-width="80">
-            <Form-item label="输入框">
-                <i-input :value.sync="formItem.input"
-                         placeholder="请输入"></i-input>
+        <i-form :model="formInline"
+                :rules="rulerInline"
+                :label-width="100">
+            <Form-item>
+                <span class="title"><i class="fa fa-envelope-o fa-fw"></i> 邮箱注册</span>
             </Form-item>
-            <Form-item label="选择器">
-                <i-select :model.sync="formItem.select"
-                          placeholder="请选择">
-                    <i-option value="beijing">北京市</i-option>
-                    <i-option value="shanghai">上海市</i-option>
-                    <i-option value="shenzhen">深圳市</i-option>
-                </i-select>
+            <Form-item label="填写常用邮箱"
+                       prop="email">
+                <i-input :value.sync="formInline.email"
+                         placeholder="example@example.com">
+                </i-input>
             </Form-item>
-            <Form-item label="日期控件">
-                <Row>
-                    <i-col span="11">
-                        <Date-picker type="date"
-                                     placeholder="选择日期"
-                                     :value.sync="formItem.date"></Date-picker>
-                    </i-col>
-                    <i-col span="2"
-                           style="text-align: center">-</i-col>
-                    <i-col span="11">
-                        <Time-picker type="time"
-                                     placeholder="选择时间"
-                                     :value.sync="formItem.time"></Time-picker>
-                    </i-col>
-                </Row>
+    
+            <Form-item>
+                <i-button @click="getCode()"
+                          :type="hasSendCode?'success':'primary'"
+                          :disabled="hasSendCode">{{hasSendCode?'验证码已经发送':'发送验证码'}}
+                </i-button>
             </Form-item>
-            <Form-item label="单选框">
-                <Radio-group :model.sync="formItem.radio">
-                    <Radio value="male">男</Radio>
-                    <Radio value="female">女</Radio>
-                </Radio-group>
+    
+            <Form-item label="验证码"
+                       prop="vertifyCode">
+                <i-input :value.sync="formInline.vertifyCode"
+                         placeholder="请输入">
+    
+                </i-input>
             </Form-item>
-            <Form-item label="多选框">
-                <Checkbox-group :model.sync="formItem.checkbox">
-                    <Checkbox value="吃饭"></Checkbox>
-                    <Checkbox value="睡觉"></Checkbox>
-                    <Checkbox value="跑步"></Checkbox>
-                    <Checkbox value="看电影"></Checkbox>
-                </Checkbox-group>
+    
+            <Form-item label="填写密码"
+                       type="password"
+                       prop="password">
+                <i-input :value.sync="formInline.password"
+                         placeholder="请输入">
+                </i-input>
             </Form-item>
-            <Form-item label="开关">
-                <Switch :checked.sync="formItem.switch"
-                        size="large">
-                    <span slot="open">开启</span>
-                    <span slot="close">关闭</span>
-                </Switch>
-            </Form-item>
-            <Form-item label="滑块">
-                <Slider :value.sync="formItem.slider"
-                        range></Slider>
-            </Form-item>
-            <Form-item label="文本域">
-                <i-input :value.sync="formItem.textarea"
-                         type="textarea"
-                         :autosize="{minRows: 2,maxRows: 5}"
-                         placeholder="请输入..."></i-input>
+    
+            <Form-item label="重复密码"
+                       type="password"
+                       prop="confirmPassword">
+                <i-input :value.sync="formInline.confirmPassword"
+                         placeholder="请输入">
+                </i-input>
             </Form-item>
             <Form-item>
-                <i-button type="primary">提交</i-button>
-                <i-button type="ghost"
-                          style="margin-left: 8px">取消</i-button>
+                <i-button type="primary"
+                          @click="signUp()">注册</i-button>
             </Form-item>
         </i-form>
-    
     </div>
 </template>
 
 <script>
+import { getVertifyCodeAction, signUpAction } from '../../vuex/actions'
+
 export default {
     data() {
-        return {
-            formItem: {
-                input: '',
-                select: '',
-                radio: 'male',
-                checkbox: [],
-                switch: true,
-                date: '',
-                time: '',
-                slider: [20, 50],
-                textarea: ''
+
+        const validatePassCheck = (rule, value, callback) => {
+            if (value === '') {
+                callback(new Error('请确认密码'));
+            } else if (value !== this.formInline.password) {
+                callback(new Error('两次密码不一致!'));
+            } else {
+                callback();
             }
+        }
+        return {
+            hasSendCode: false,
+            formInline: {
+                email: "888",
+                vertifyCode: "",
+                password: ""
+            },
+            rulerInline: {
+                email: [
+                    { required: true, message: '请填写邮箱', trigger: 'blur' }
+                ],
+                vertifyCode: [
+                    { required: true, message: '请填写邮箱验证码', trigger: 'blur' },
+                ],
+                password: [
+                    { required: true, message: '请填写密码', trigger: 'blur' },
+                ],
+                confirmPassword: [
+                    { required: true, validator: validatePassCheck, trigger: 'blur' }
+                ]
+            }
+
+        };
+    },
+
+    methods: {
+        getCode() {
+            var email = this.formInline.email;
+            if (!email)
+                return "";
+            this.getVertifyCodeAction(email).then(res => {
+                console.log(res);
+                if (res.ok) {
+                    this.hasSendCode = true;
+                }
+            }).catch(err => {
+                this.hasSendCode = false;
+            })
+        },
+        signUp() {
+            var email = this.formInline.email,
+                password = this.formInline.password,
+                confirmPassword = this.formInline.confirmPassword,
+                vertifyCode = this.forminline.vertifyVode;
+            if (!email || !password | !vertifyCode || !confirmPassword || password !== confirmPassword) {
+                return;
+            }
+            this.getVertifyCodeAction(email, password, vertifyCode).then(res => {
+
+            }).catch(err => {
+
+            })
+        }
+    },
+    vuex: {
+        getters: {
+            // user: state => state.session
+        },
+        actions: {
+            getVertifyCodeAction,
+            signUpAction
         }
     }
 }
-
 
 </script>
 
 <style lang="less">
 .sign-up {
     margin: 0 auto;
-    margin-top: 30px;
+    margin-top: 50px;
     width: 40%;
     min-width: 300px;
+    .title {
+        font-size: 18px;
+    }
 }
-
-;
 </style>
