@@ -29,6 +29,14 @@
                 </i-input>
             </Form-item>
     
+            <Form-item label="姓名"
+                       prop="name">
+                <i-input :value.sync="formInline.name"
+                         placeholder="请输入">
+    
+                </i-input>
+            </Form-item>
+    
             <Form-item label="填写密码"
                        type="password"
                        prop="password">
@@ -53,7 +61,7 @@
 </template>
 
 <script>
-import { getVertifyCodeAction, signUpAction } from '../../vuex/actions'
+import { getVertifyCodeAction, signUpAction, routerGo, signIn } from '../../vuex/actions'
 
 export default {
     data() {
@@ -70,13 +78,18 @@ export default {
         return {
             hasSendCode: false,
             formInline: {
-                email: "888",
+                name: "pawn",
+                email: "812647756@qq.com",
                 vertifyCode: "",
-                password: ""
+                password: "lllllll",
+                confirmPassword: 'lllllll'
             },
             rulerInline: {
                 email: [
                     { required: true, message: '请填写邮箱', trigger: 'blur' }
+                ],
+                name: [
+                    { required: true, message: "请填写姓名", trigger: 'blur' }
                 ],
                 vertifyCode: [
                     { required: true, message: '请填写邮箱验证码', trigger: 'blur' },
@@ -103,21 +116,52 @@ export default {
                     this.hasSendCode = true;
                 }
             }).catch(err => {
+                console.log(err);
                 this.hasSendCode = false;
             })
         },
         signUp() {
-            var email = this.formInline.email,
+            var name = this.formInline.name,
+                email = this.formInline.email,
                 password = this.formInline.password,
                 confirmPassword = this.formInline.confirmPassword,
-                vertifyCode = this.forminline.vertifyVode;
-            if (!email || !password | !vertifyCode || !confirmPassword || password !== confirmPassword) {
+                vertifyCode = this.formInline.vertifyCode;
+            if (!name || !email || !password | !vertifyCode || !confirmPassword || password !== confirmPassword) {
                 return;
-            }
-            this.getVertifyCodeAction(email, password, vertifyCode).then(res => {
+            }  // name, email, code, password
+            this.signUpAction(name, email, vertifyCode, password).then(res => {
+                console.log(res);
+
+                switch (res.ok) {
+                    case 0: {
+                        this.$Message.success('验证码错误');
+                        return;
+                    }
+                    case -1: {
+                        this.$Message.success('出错了，请重试');
+                        return;
+                    }
+                    case 1: {
+                        this.$Message.success('该邮箱已经被注册');
+                        return;
+                    }
+                    case 2: {
+                        // 登录
+                        this.signIn(email, password).then(res => {
+                            this.routerGo('basic-info');
+                        }).catch(err => {
+                            this.routerGo('basic-info');
+                        })
+                        // 跳转
+
+                        return;
+                    }
+                }
 
             }).catch(err => {
-
+                console.log(err);
+                this.$Message.success('出错了，请重试');
+                return;
             })
         }
     },
@@ -127,7 +171,9 @@ export default {
         },
         actions: {
             getVertifyCodeAction,
-            signUpAction
+            signUpAction,
+            signIn,
+            routerGo
         }
     }
 }

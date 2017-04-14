@@ -166,7 +166,6 @@ export const getVertifyCodeAction = ({ dispatch }, email) => {
                 email: email
             })
         }).then(res => res.json()).then(res => {
-
             resolve(res);
         }).catch(err => {
             reject(err);
@@ -174,20 +173,23 @@ export const getVertifyCodeAction = ({ dispatch }, email) => {
     })
 }
 
-export const signUpAction = ({ dispatch }, email, code, password) => {
+export const signUpAction = ({ dispatch }, name, email, code, password) => {
     return new Promise((resolve, reject) => {
         fetch('/api/signup', {
+            credentials: 'include',
             method: 'POST',
             headers: {
                 'Accept': 'application/json, text/plain, */*',
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                param: Math.random(2, 8),
-                email: email
+                name: name,
+                email: email,
+                password: password,
+                vertifyCode: code
             })
-        }).then(res => {
-
+        }).then(res => res.json()).then(res => {
+            resolve(res);
         }).catch(err => {
 
         })

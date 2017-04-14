@@ -9,6 +9,10 @@ import meetingPlan from './components/meeting-plan/meeting-plan.vue'
 import news from './components/news/news'
 import my from './components/my/my'
 import signUp from './components/sign-up/sign-up'
+import basicInfo from './components/basic-info/basic-info';
+import keyInfo from './components/key-info/key-info.vue'
+import uploadResume from './components/upload-resume/upload-resume'
+import forget from './components/forget/forget'
 
 // home 子路由
 import company from './components/company/company'
@@ -31,7 +35,7 @@ let app = Vue.extend(App);
 
 router.map({
   '/': {
-    component: signUp
+    component: forget
   },
   '/home': {
     component: home,
@@ -51,7 +55,20 @@ router.map({
   '/home/:companyname': {
     name: 'company',
     component: company
+  },
+  '/basic-info': {
+    component: basicInfo
+  },
+  '/key-info': {
+    component: keyInfo
+  },
+  '/upload-resume': {
+    component: uploadResume
+  },
+  '/forget': {
+    component: forget
   }
+
 })
 
 router.start(app, '#app');
