@@ -35,7 +35,7 @@ let app = Vue.extend(App);
 
 router.map({
   '/': {
-    component: forget
+    component: my
   },
   '/home': {
     component: home,

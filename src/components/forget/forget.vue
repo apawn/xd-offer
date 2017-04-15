@@ -52,7 +52,15 @@
     </div>
 </template>
 
-<script></script>
+<script>
+export default {
+    data() {
+        return {
+            formInline: {}
+        }
+    }
+}
+</script>
 
 <style lang="less">
 .forget {

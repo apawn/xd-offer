@@ -2,10 +2,6 @@
     <div class="upload-resume">
         <h3 class="title">上传简历</h3>
         <i-form :label-width="80">
-            <Form-item label="自我评价">
-                <i-input type="textarea"
-                         :autosize="{minRows: 5,maxRows: 5}"></i-input>
-            </Form-item>
     
             <Form-item label="上传简历">
                 <Upload multiple
@@ -47,10 +43,6 @@
         border-bottom: 1px solid #ccc;
         font-size: 24px;
         font-weight: 300;
-    }
-    .ivu-input {
-        resize: none;
-        text-indent: 8px;
     }
 }
 </style>

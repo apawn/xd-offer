@@ -111,7 +111,7 @@ export default {
         margin-top: 50px;
         width: 90%;
         overflow: hidden;
-        background: #fff;
+        background: #ececec;
         .job-item {
             margin-top: 20px;
             box-sizing: border-box;

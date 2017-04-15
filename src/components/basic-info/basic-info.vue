@@ -47,6 +47,11 @@
                 </Radio-group>
             </Form-item>
     
+            <Form-item label="自我评价">
+                <i-input type="textarea"
+                         :autosize="{minRows: 5,maxRows: 5}"></i-input>
+            </Form-item>
+    
             <form-item>
                 <i-button type="primary"
                           :style="{width:'25%'}">下一步
@@ -101,6 +106,10 @@ export default {
         border-bottom: 1px solid #ccc;
         font-size: 24px;
         font-weight: 300;
+    }
+    .ivu-input {
+        resize: none;
+        text-indent: 8px;
     }
 }
 
