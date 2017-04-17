@@ -7,7 +7,8 @@
         <i-form :model="formItem"
                 :label-width="80">
     
-            <div class="skills common">
+            <div class="skills common"
+                 id="skills">
                 <h5 class="title">基本技能</h5>
                 <Form-item v-for="item in formItem.skills"
                            :label="($index + 1)+'. '"
@@ -21,8 +22,7 @@
                         </i-col>
                         <i-col span="4"
                                offset="1">
-                            <i-button type="ghost"
-                                      @click="handleRemove(item)">删除</i-button>
+                            <i-button type="ghost">删除</i-button>
                         </i-col>
                     </Row>
     
@@ -32,14 +32,14 @@
                         <i-col span="12">
                             <i-button type="dashed"
                                       long
-                                      @click="handleAdd"
                                       icon="plus-round">新增</i-button>
                         </i-col>
                     </Row>
                 </Form-item>
             </div>
     
-            <div class="edu common">
+            <div class="edu common"
+                 id="eduction">
                 <h5 class="title">教育经历</h5>
                 <Form-item v-for="item in formItem.skills"
                            :label="($index + 1)+'. '"
@@ -53,8 +53,7 @@
                         </i-col>
                         <i-col span="4"
                                offset="1">
-                            <i-button type="ghost"
-                                      @click="handleRemove(item)">删除</i-button>
+                            <i-button type="ghost">删除</i-button>
                         </i-col>
                     </Row>
     
@@ -64,14 +63,14 @@
                         <i-col span="12">
                             <i-button type="dashed"
                                       long
-                                      @click="handleAdd"
                                       icon="plus-round">新增</i-button>
                         </i-col>
                     </Row>
                 </Form-item>
             </div>
     
-            <div class="pratice common">
+            <div class="pratice common"
+                 id="prize">
                 <h5 class="title">获奖情况</h5>
                 <Form-item v-for="item in formItem.skills"
                            :label="($index + 1)+'. '"
@@ -85,8 +84,7 @@
                         </i-col>
                         <i-col span="4"
                                offset="1">
-                            <i-button type="ghost"
-                                      @click="handleRemove(item)">删除</i-button>
+                            <i-button type="ghost">删除</i-button>
                         </i-col>
                     </Row>
     
@@ -96,14 +94,14 @@
                         <i-col span="12">
                             <i-button type="dashed"
                                       long
-                                      @click="handleAdd"
                                       icon="plus-round">新增</i-button>
                         </i-col>
                     </Row>
                 </Form-item>
             </div>
     
-            <div class="pratice common">
+            <div class="pratice common"
+                 id="pratice">
                 <h5 class="title">实习经历</h5>
                 <Form-item v-for="item in formItem.skills"
                            :label="($index + 1)+'. '"
@@ -117,8 +115,7 @@
                         </i-col>
                         <i-col span="4"
                                offset="1">
-                            <i-button type="ghost"
-                                      @click="handleRemove(item)">删除</i-button>
+                            <i-button type="ghost">删除</i-button>
                         </i-col>
                     </Row>
     
@@ -128,7 +125,6 @@
                         <i-col span="12">
                             <i-button type="dashed"
                                       long
-                                      @click="handleAdd"
                                       icon="plus-round">新增</i-button>
                         </i-col>
                     </Row>
@@ -136,8 +132,7 @@
             </div>
     
             <Form-item>
-                <i-button type=""
-                          :style="{width:'25%'}">上一步
+                <i-button :style="{width:'25%'}">上一步
                 </i-button>
                 <i-button type="primary"
                           :style="{width:'25%'}">下一步
@@ -149,6 +144,7 @@
 </template>
 
 <script>
+import { routerGo, setSignInModal } from '../../vuex/actions.js'
 export default {
     data() {
         return {
@@ -157,13 +153,19 @@ export default {
             }
         }
     },
-
+    created() {
+        if (!this.currentStudent) {
+            this.routerGo('./home');
+            this.setSignInModal(true);
+        }
+    },
     vuex: {
         getters: {
-
+            currentStudent: state => state.currentStudent
         },
         actions: {
-
+            routerGo,
+            setSignInModal
         }
     }
 }

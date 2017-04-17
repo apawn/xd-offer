@@ -1,10 +1,14 @@
 import { router } from '../router.js'
 
 export default {
-    ROUTE_GO(state, href, query) {
+    ROUTE_GO(state, href, anchorSelector = "body") {
         // router.go(href);
         router.go(href);
-
+        setTimeout(() => {
+            var anchor = document.querySelector(anchorSelector);
+            if (anchor)
+                document.body.scrollTop = anchor.offsetTop - 60;
+        }, 0);
     },
 
     SIGN_IN(state, result) {

@@ -1,6 +1,6 @@
-export const routerGo = ({ dispatch }, href) => {
+export const routerGo = ({ dispatch }, href, anchor) => {
 
-    var res = dispatch('ROUTE_GO', href);
+    var res = dispatch('ROUTE_GO', href, anchor);
 
 }
 

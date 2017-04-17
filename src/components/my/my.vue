@@ -1,7 +1,8 @@
 
 
 <template>
-    <div class="my">
+    <div class="my"
+         v-if="currentStudent">
         <div class="tip">
             <span><i class="fa fa-envira"></i> 完善的简历能获得更多的面试机会哟</span>
         </div>
@@ -9,7 +10,7 @@
             <Row>
                 <i-col span="6">
                     <img class="avator"
-                         src="male.jpg"
+                         :src="(gender==='女'?'./static/female.jpg':'./static/male.jpg')"
                          alt="">
                 </i-col>
                 <i-col span="18">
@@ -45,12 +46,14 @@
     
         <div class="info">
             <h6 class="info-title">自我评价<i class="fa fa-sort-up info-icon"></i> </h6>
-            <a class="edit-link">点击修改</a>
+            <a class="edit-link"
+               @click="routerGo('/basic-info')">点击修改</a>
             <p class="content">{{introduction}}</p>
         </div>
         <div class="info">
             <h6 class="info-title">基本技能<i class="fa fa-sort-up info-icon"></i></h6>
-            <a class="edit-link">点击修改</a>
+            <a class="edit-link"
+               @click="routerGo('/key-info','#skills')">点击修改</a>
             <ul class="info-list">
                 <li class="item"
                     v-for="item in skills">
@@ -60,7 +63,8 @@
         </div>
         <div class="info">
             <h6 class="info-title">教育经历<i class="fa fa-sort-up info-icon"></i> </h6>
-            <a class="edit-link">点击修改</a>
+            <a class="edit-link"
+               @click="routerGo('/key-info','#eduction')">点击修改</a>
             <ul class="info-list">
                 <li class="item"
                     v-for="item in eduction">
@@ -71,7 +75,8 @@
         </div>
         <div class="info">
             <h6 class="info-title">获奖情况<i class="fa fa-sort-up info-icon"></i> </h6>
-            <a class="edit-link">点击修改</a>
+            <a class="edit-link"
+               @click="routerGo('/key-info','#prize')">点击修改</a>
             <ul class="info-list">
                 <li class="item"
                     v-for="item in prizes">
@@ -82,7 +87,8 @@
         </div>
         <div class="info">
             <h6 class="info-title">实习经历<i class="fa fa-sort-up info-icon"></i> </h6>
-            <a class="edit-link">点击修改</a>
+            <a class="edit-link"
+               @click="routerGo('/key-info','#pratice')">点击修改</a>
             <ul class="info-list">
                 <li class="item"
                     v-for="item in experience">
@@ -98,12 +104,13 @@
 </template>
 
 <script>
+import { setSignInModal, routerGo } from '../../vuex/actions.js'
 export default {
     data() {
         return {
             name: 'pawn',
             birthday: '1994-05-04',
-            gender: '男',
+            gender: '女',
             email: '888@qq.com',
             phone: '88888888',
             collage: '软件学院',
@@ -130,27 +137,24 @@ export default {
                 mainWork: `户县调研，在与户县李氏木刻刘鹏鹂深入沟通的基础上，确定项目的主要发展方向， 设计宣传单，进入西安各大高校进行宣传活动，扩大了项目影响力和活动的传播度 。撰写详实的活动文案，策划组织木刻体验活动，实现项目组的首次盈利`,
             }]
         };
+    },
+    methods: {},
+    created() {
+
+        if (!this.currentStudent) {
+            this.setSignInModal(true);
+        }
+    },
+    vuex: {
+        getters: {
+            currentStudent: state => state.session
+        },
+        actions: {
+            setSignInModal,
+            routerGo
+        }
     }
 }
-// var Student = new mongoose.Schema({
-//     name: String,
-//     password: String,
-//     birthday: Date,
-//     gender: Number,
-//     email: String,
-//     phone: String,
-//     speciality: String,
-//     skill: [String],
-//     prizes: [{ content: String, time: Date }], // include string and date Schema.Types.Mixed
-//     experience: [{ content: String, start: Date, end: Date, mainwork: String }],  // include company startdate, endDate, main work.
-//     introduction: String,
-//     resumePath: String,
-//     //  private 
-//     resumeDelivered: [{ email: String, position: String, time: Date }],  // the companies has delivered resume, include company ,job
-//     getInvations: [{ company: String, position: String, time: Date }],    // the companies which student has get invations from , include company ,job
-//     message: [{ content: String, time: Date, hasread: Boolean }],        // content date hasRead 
-//     comments: [{ content: String, time: Date, company: "" }]
-// })
 
 </script>
 
