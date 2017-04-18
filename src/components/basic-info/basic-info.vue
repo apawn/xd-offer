@@ -1,6 +1,6 @@
 <template>
     <div class="basic-info"
-         v-if="currentStudent">
+         v-show="currentStudent">
         <!--一个模态对话框,只有邮箱验证才会通过             -->
         <h3 class="title">完成个人信息，获得 HR 关注</h3>
         <i-form v-ref:form-inline
@@ -8,9 +8,8 @@
                 :rules="rulerInline"
                 :label-width="80">
     
-            <Form-item label="姓名"
-                       prop="name">
-                <i-input :value.sync="formInline.name"
+            <Form-item label="姓名">
+                <i-input :value="currentStudent ? currentStudent.name : ''"
                          readonly
                          placeholder="请输入"></i-input>
             </Form-item>
@@ -61,7 +60,7 @@
             <Form-item label="自我评价"
                        prop="introduction">
                 <i-input type="textarea"
-                         :value.sync="introduction"
+                         :value.sync="formInline.introduction"
                          :autosize="{minRows: 5,maxRows: 5}"></i-input>
             </Form-item>
     
@@ -78,19 +77,18 @@
 </template>
 
 <script>
-import { setSignInModal, routerGo } from '../../vuex/actions.js'
+import { setSignInModal, routerGo, completeBasicInfo } from '../../vuex/actions.js'
 export default {
     data() {
         return {
             formInline: {
-                name: this.currentStudent ? this.currentStudent.name : "",
                 birthday: '',
-                phone: '',
-                collage: "",
-                specity: "",
+                phone: '15845565860',
+                collage: "软件学院",
+                specity: "软件工程",
                 highest: 'undergraduate',
                 gender: 'male',
-                introduction: ""
+                introduction: "工作：认真负责，踏实稳重，具有很强的团队合作精神； 学习：求知欲强，勤奋好学，学习能力强； 生活：热爱生活，为人正直善良，积极进取，敢于挑战自我。"
             },
             rulerInline: {
                 name: [
@@ -121,18 +119,35 @@ export default {
         }
     },
     methods: {
-        prev() {
-
-        },
         next(name) {
-            console.log(this.$refs);
             this.$refs[name].validate((valid) => {
                 if (valid) {
-                    this.$Message.success('提交成功!');
+                    this.completeBasicInfo({
+                        email: this.currentStudent.email,
+                        birthday: this.formInline.birthday.toLocaleDateString(),// 2017/4/18
+                        name: this.currentStudent.name,
+                        phone: this.formInline.phone,
+                        collage: this.formInline.collage,
+                        speciality: this.formInline.specity,
+                        highest: this.formInline.highest,
+                        gender: this.formInline.gender,
+                        introduction: this.formInline.introduction
+                    }).then(res => {
+                        if (res.ok) {
+                            console.log('shit');
+                            // this.routerGo('/key-info');
+                        } else {
+                            this.$Message.error('出错，请重试');
+                        }
+
+                    }).catch(err => {
+                        this.$Message.error('出错，请重试');
+                    })
                 } else {
                     this.$Message.error('表单验证失败!');
                 }
             })
+
         }
     },
     created() {
@@ -148,6 +163,7 @@ export default {
         actions: {
             routerGo,
             setSignInModal,
+            completeBasicInfo
 
         }
     }

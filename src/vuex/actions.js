@@ -205,9 +205,40 @@ export const completeBasicInfo = ({ dispatch }, basicInfo) => {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                name: name,
-                email: basicInfo.email
+                name: basicInfo.name,
+                email: basicInfo.email,
+                birthday: basicInfo.birthday,
+                phone: basicInfo.phone,
+                collage: basicInfo.collage,
+                speciality: basicInfo.speciality,
+                highest: basicInfo.highest,
+                gender: basicInfo.gender,
+                introduction: basicInfo.introduction
             })
+        }).then(res => res.json()).then(res => {
+            resolve(res);
+        }).catch(err => {
+            reject(err);
         })
     })
 }
+
+export const completeKeyInfo = ({ dispatch }, keyInfo) => {
+    return new Promise((resolve, reject) => {
+        fetch('/api/completebasicinfo', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json, text/plain, */*',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+
+            })
+        }).then(res => res.json()).then(res => {
+
+        }).catch(err => {
+
+        })
+    })
+}
+
