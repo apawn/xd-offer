@@ -12,9 +12,9 @@
             <div class="skills common"
                  id="skills">
                 <h5 class="title">基本技能</h5>
-                <Form-item v-for="item in formItem.skills"
+                <Form-item v-for="item in formInline.skills"
                            :label="($index + 1)+'. '"
-                           :prop="'item'"
+                           :prop="'skills.'+$index"
                            :rules="{required: true, message: '技能' + ($index + 1) +'不能为空', trigger: 'blur'}">
                     <Row>
                         <i-col span="18">
@@ -74,7 +74,7 @@
             <div class="pratice common"
                  id="prize">
                 <h5 class="title">获奖情况</h5>
-                <Form-item v-for="item in formItem.prize"
+                <Form-item v-for="item in formInline.prize"
                            :label="($index + 1)+'. '"
                            :prop="'item'"
                            :rules="{required: true, message: '经历' + ($index + 1) +'不能为空', trigger: 'blur'}">
@@ -105,7 +105,7 @@
             <div class="pratice common"
                  id="pratice">
                 <h5 class="title">实习经历</h5>
-                <Form-item v-for="item in formItem.pratice"
+                <Form-item v-for="item in formInline.pratice"
                            :label="($index + 1)+'. '"
                            :prop="'item'"
                            :rules="{required: true, message: '经历' + ($index + 1) +'不能为空', trigger: 'blur'}">
@@ -152,7 +152,7 @@ import { routerGo, setSignInModal } from '../../vuex/actions.js'
 export default {
     data() {
         return {
-            formItem: {
+            formInline: {
                 skills: ["精通JavaScript", "熟练算法和数据结构"]
             }
         }
@@ -160,7 +160,8 @@ export default {
     methods: {
         prev() { },
         next(name) {
-            this.$ref[name].validate((valid) => {
+            console.log(name);
+            this.$refs[name].validate((valid) => {
                 if (valid) {
                     this.$Message.success('提交成功!');
                 } else {
@@ -202,9 +203,9 @@ export default {
         font-size: 24px;
         font-weight: 300;
     }
-    .skills .ivu-form-item {
-        margin-bottom: 6px;
-    }
+    // .skills .ivu-form-item {
+    //     margin-bottom: 6px;
+    // }
     .common {
         margin-bottom: 50px;
         .title {
