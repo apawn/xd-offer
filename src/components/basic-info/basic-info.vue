@@ -147,7 +147,8 @@ export default {
         },
         actions: {
             routerGo,
-            setSignInModal
+            setSignInModal,
+
         }
     }
 }
