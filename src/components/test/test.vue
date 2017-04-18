@@ -1,76 +1,135 @@
 <template>
-    <div class="my">
-        <div class="tip">
-            <span>完善的简历能获得更多的面试机会哟</span>
-        </div>
-     </div>
-<template>
-
+    <i-form v-ref:form-validate
+            :model="formValidate"
+            :rules="ruleValidate"
+            :label-width="80">
+        <Form-item label="姓名"
+                   prop="name">
+            <i-input :value.sync="formValidate.name"
+                     placeholder="请输入姓名"></i-input>
+        </Form-item>
+        <Form-item label="邮箱"
+                   prop="mail">
+            <i-input :value.sync="formValidate.mail"
+                     placeholder="请输入邮箱"></i-input>
+        </Form-item>
+        <Form-item label="城市"
+                   prop="city">
+            <i-select :model.sync="formValidate.city"
+                      placeholder="请选择所在地">
+                <i-option value="beijing">北京市</i-option>
+                <i-option value="shanghai">上海市</i-option>
+                <i-option value="shenzhen">深圳市</i-option>
+            </i-select>
+        </Form-item>
+        <Form-item label="选择日期">
+            <Row>
+                <i-col span="11">
+                    <Form-item prop="date">
+                        <Date-picker type="date"
+                                     placeholder="选择日期"
+                                     :value.sync="formValidate.date"></Date-picker>
+                    </Form-item>
+                </i-col>
+                <i-col span="2"
+                       style="text-align: center">-</i-col>
+                <i-col span="11">
+                    <Form-item prop="time">
+                        <Time-picker type="time"
+                                     placeholder="选择时间"
+                                     :value.sync="formValidate.time"></Time-picker>
+                    </Form-item>
+                </i-col>
+            </Row>
+        </Form-item>
+        <Form-item label="性别"
+                   prop="gender">
+            <Radio-group :model.sync="formValidate.gender">
+                <Radio value="male">男</Radio>
+                <Radio value="female">女</Radio>
+            </Radio-group>
+        </Form-item>
+        <Form-item label="爱好"
+                   prop="interest">
+            <Checkbox-group :model.sync="formValidate.interest">
+                <Checkbox value="吃饭"></Checkbox>
+                <Checkbox value="睡觉"></Checkbox>
+                <Checkbox value="跑步"></Checkbox>
+                <Checkbox value="看电影"></Checkbox>
+            </Checkbox-group>
+        </Form-item>
+        <Form-item label="介绍"
+                   prop="desc">
+            <i-input :value.sync="formValidate.desc"
+                     type="textarea"
+                     :autosize="{minRows: 2,maxRows: 5}"
+                     placeholder="请输入..."></i-input>
+        </Form-item>
+        <Form-item>
+            <i-button type="primary"
+                      @click="handleSubmit('formValidate')">提交</i-button>
+            <i-button type="ghost"
+                      @click="handleReset('formValidate')"
+                      style="margin-left: 8px">重置</i-button>
+        </Form-item>
+    </i-form>
+</template>
 <script>
 export default {
     data() {
         return {
-            name: 'pawn',
-            birthday: '1994-05-04',
-            gender: '男',
-            email: '888@qq.com',
-            phone: '88888888',
-            collage: '软件学院',
-            speciality: '软件工程',
-            highest: '本科',
-            skills: ['精通JavaScript', '熟悉常用算法和数据结构'],
-            // 获奖情况
-            prizes: [
-                { content: '荣获校级“优秀党员” 、 “三好学生”称号', time: '2015-03-08' },
-                { content: '西安电子科技大学学业奖学金二等奖学金” 、 “三好学生”称号', time: '2014-03-05' },
-            ],
-            resumePath: '555555',
-            eduction: [
-                content:'西安电子科技大学       通信与信息系统  ',
-                start:'2013-08-24',
-                end:'2017-07-01'
-            ],
-            experience: [
-                content:'“木上花开”项目组主要负责人',
-                start:'2014-09-05',
-                end:'2015-06-15',
-                mainWork:`户县调研，在与户县李氏木刻刘鹏鹂深入沟通的基础上，确定项目的主要发展方向， 设计宣传单，进入西安各大高校进行宣传活动，扩大了项目影响力和活动的传播度 。撰写详实的活动文案，策划组织木刻体验活动，实现项目组的首次盈利`,
-
-            ],
-            introduction: `认真负责，踏实稳重，具有很强的团队合作精神； 学习：求知欲强，勤奋好学，学习能力强； 生活：热爱生活，为人正直善良，积极进取，敢于挑战自我。 `,
-
-        };
+            formValidate: {
+                name: '',
+                mail: '',
+                city: '',
+                gender: '',
+                interest: [],
+                date: '',
+                time: '',
+                desc: ''
+            },
+            ruleValidate: {
+                name: [
+                    { required: true, message: '姓名不能为空', trigger: 'blur' }
+                ],
+                mail: [
+                    { required: true, message: '邮箱不能为空', trigger: 'blur' },
+                    { type: 'email', message: '邮箱格式不正确', trigger: 'blur' }
+                ],
+                city: [
+                    { required: true, message: '请选择城市', trigger: 'change' }
+                ],
+                gender: [
+                    { required: true, message: '请选择性别', trigger: 'change' }
+                ],
+                interest: [
+                    { required: true, type: 'array', min: 1, message: '至少选择一个爱好', trigger: 'change' },
+                    { type: 'array', max: 2, message: '最多选择两个爱好', trigger: 'change' }
+                ],
+                date: [
+                    { required: true, type: 'date', message: '请选择日期', trigger: 'change' }
+                ],
+                time: [
+                    { required: true, type: 'date', message: '请选择时间', trigger: 'change' }
+                ],
+                desc: [
+                    { required: true, message: '请输入个人介绍', trigger: 'blur' },
+                    { type: 'string', min: 20, message: '介绍不能少于20字', trigger: 'blur' }
+                ]
+            }
+        }
+    },
+    methods: {
+        handleSubmit(name) {
+            this.$refs[name].validate((valid) => {
+                if (valid) {
+                    this.$Message.success('提交成功!');
+                }
+            })
+        },
+        handleReset(name) {
+            this.$refs[name].resetFields();
+        }
     }
 }
-// var Student = new mongoose.Schema({
-//     name: String,
-//     password: String,
-//     birthday: Date,
-//     gender: Number,
-//     email: String,
-//     phone: String,
-//     speciality: String,
-//     skill: [String],
-//     prizes: [{ content: String, time: Date }], // include string and date Schema.Types.Mixed
-//     experience: [{ content: String, start: Date, end: Date, mainwork: String }],  // include company startdate, endDate, main work.
-//     introduction: String,
-//     resumePath: String,
-//     //  private 
-//     resumeDelivered: [{ email: String, position: String, time: Date }],  // the companies has delivered resume, include company ,job
-//     getInvations: [{ company: String, position: String, time: Date }],    // the companies which student has get invations from , include company ,job
-//     message: [{ content: String, time: Date, hasread: Boolean }],        // content date hasRead 
-//     comments: [{ content: String, time: Date, company: "" }]
-// })
-
 </script>
-
-
-
-
-<style lang="less">
-.my {
-    border: 1px solid red;
-    width: 70%;
-    >.tip {}
-}
-</style>

@@ -195,3 +195,19 @@ export const signUpAction = ({ dispatch }, name, email, code, password) => {
         })
     });
 }
+
+export const completeBasicInfo = ({ dispatch }, basicInfo) => {
+    return new Promise((resolve, reject) => {
+        fetch('api/completebasicinfo', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json, text/plain, */*',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                name: name,
+                email: basicInfo.email
+            })
+        })
+    })
+}

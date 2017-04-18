@@ -18,7 +18,7 @@
                    class="option">{{session.name}}</a>
                 <a v-if="!session"
                    class="option"
-                   @click="signPop()">登录</a>
+                   @click="signPop()">欢迎，请登录</a>
                 <a v-if="!session"
                    class="option"
                    @click="routerGo('/sign-up')">注册</a>

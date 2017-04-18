@@ -1,10 +1,12 @@
 
 <template>
-    <div class="key-info">
+    <div class="key-info"
+         v-if="currentStudent">
         <!--一个模态对话框,只有邮箱验证才会通过             -->
         <h3 class="title">完善信息</h3>
     
-        <i-form :model="formItem"
+        <i-form v-ref:form-inline
+                :model="formInline"
                 :label-width="80">
     
             <div class="skills common"
@@ -41,7 +43,7 @@
             <div class="edu common"
                  id="eduction">
                 <h5 class="title">教育经历</h5>
-                <Form-item v-for="item in formItem.skills"
+                <Form-item v-for="item in formInline.eduction"
                            :label="($index + 1)+'. '"
                            :prop="'item'"
                            :rules="{required: true, message: '经历' + ($index + 1) +'不能为空', trigger: 'blur'}">
@@ -72,7 +74,7 @@
             <div class="pratice common"
                  id="prize">
                 <h5 class="title">获奖情况</h5>
-                <Form-item v-for="item in formItem.skills"
+                <Form-item v-for="item in formItem.prize"
                            :label="($index + 1)+'. '"
                            :prop="'item'"
                            :rules="{required: true, message: '经历' + ($index + 1) +'不能为空', trigger: 'blur'}">
@@ -103,7 +105,7 @@
             <div class="pratice common"
                  id="pratice">
                 <h5 class="title">实习经历</h5>
-                <Form-item v-for="item in formItem.skills"
+                <Form-item v-for="item in formItem.pratice"
                            :label="($index + 1)+'. '"
                            :prop="'item'"
                            :rules="{required: true, message: '经历' + ($index + 1) +'不能为空', trigger: 'blur'}">
@@ -132,9 +134,11 @@
             </div>
     
             <Form-item>
-                <i-button :style="{width:'25%'}">上一步
+                <i-button @click="prev()"
+                          :style="{width:'25%'}">上一步
                 </i-button>
                 <i-button type="primary"
+                          @click="next('formInline')"
                           :style="{width:'25%'}">下一步
                 </i-button>
             </Form-item>
@@ -153,15 +157,26 @@ export default {
             }
         }
     },
+    methods: {
+        prev() { },
+        next(name) {
+            this.$ref[name].validate((valid) => {
+                if (valid) {
+                    this.$Message.success('提交成功!');
+                } else {
+                    this.$Message.error('表单验证失败!');
+                }
+            })
+        }
+    },
     created() {
         if (!this.currentStudent) {
-            this.routerGo('./home');
             this.setSignInModal(true);
         }
     },
     vuex: {
         getters: {
-            currentStudent: state => state.currentStudent
+            currentStudent: state => state.session
         },
         actions: {
             routerGo,
