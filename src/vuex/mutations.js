@@ -48,5 +48,13 @@ export default {
 
     COMMENT_COMPANY(state, content) {
         state.currentCompany.comments.push({ content: content, time: new Date().toLocaleDateString() });
+    },
+    SET_CURRENT_ACTIVE_KEY(state, activeKey) {
+        state.currentActiveKey = activeKey;
+    },
+    UPDATE_CURRENT_STUDENT(state, currentStudent) {
+        state.session = currentStudent
     }
+
+
 }

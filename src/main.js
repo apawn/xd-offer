@@ -35,21 +35,26 @@ let app = Vue.extend(App);
 
 router.map({
   '/': {
-    component: basicInfo
+    component: home
   },
   '/home': {
+    name: 'home',
     component: home,
   },
   '/meeting-plan': {
+    name: 'meetingPlan',
     component: meetingPlan
   },
   '/announcements': {
+    name: 'news',
     component: news
   },
   '/my': {
+    name: 'my',
     component: my
   },
   '/sign-up': {
+    name: 'signUp',
     component: signUp
   },
   '/home/:companyname': {
@@ -57,15 +62,19 @@ router.map({
     component: company
   },
   '/basic-info': {
+    name: 'basicInfo',
     component: basicInfo
   },
   '/key-info': {
+    name: 'keyInfo',
     component: keyInfo
   },
   '/upload-resume': {
+    name: 'uploadResume',
     component: uploadResume
   },
   '/forget': {
+    name: 'forget',
     component: forget
   }
 

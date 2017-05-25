@@ -53,10 +53,19 @@
 </template>
 
 <script>
+import { setCurrentActiveKey } from '../../vuex/actions.js'
 export default {
     data() {
         return {
             formInline: {}
+        }
+    },
+    created() {
+        this.setCurrentActiveKey("");
+    },
+    vuex: {
+        actions: {
+            setCurrentActiveKey
         }
     }
 }

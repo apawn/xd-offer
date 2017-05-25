@@ -5,18 +5,14 @@
         <!--一个模态对话框,只有邮箱验证才会通过             -->
         <h3 class="title">完善信息</h3>
     
-        <i-form v-ref:form-inline
-                :model="formInline"
-                :label-width="80">
+        <i-form :label-width="80">
     
             <div class="skills common"
                  id="skills">
                 <h5 class="title">基本技能</h5>
-                <Form-item v-for="item in formInline.skills"
+                <Form-item v-for="item in formInlineComputed.skills"
                            track-by="$index"
-                           :label="($index + 1)+'. '"
-                           :prop="'skills.'+$index"
-                           :rules="{required: true, message: '技能' + ($index + 1) +'不能为空', trigger: 'blur'}">
+                           :label="($index + 1)+'. '">
                     <Row>
                         <i-col span="18">
                             <i-input type="text"
@@ -26,7 +22,7 @@
                         <i-col span="4"
                                offset="1">
                             <i-button type="warning"
-                                      @click="removeItem(formInline.skills,$index)">删除</i-button>
+                                      @click="removeItem(formInlineComputed.skills,$index)">删除</i-button>
                         </i-col>
                     </Row>
     
@@ -38,7 +34,7 @@
                                       style="border-color:green;"
                                       long
                                       icon="plus-round"
-                                      @click="addItem(formInline.skills)">新增</i-button>
+                                      @click="addItem(formInlineComputed.skills)">新增</i-button>
                         </i-col>
                     </Row>
                 </Form-item>
@@ -47,11 +43,9 @@
             <div class="edu common"
                  id="eduction">
                 <h5 class="title">教育经历</h5>
-                <Form-item v-for="item in formInline.eduction"
+                <Form-item v-for="item in formInlineComputed.eduction"
                            track-by="$index"
-                           :label="($index + 1)+'. '"
-                           :prop="'eduction.'+$index+'.content'"
-                           :rules="{required: true, message: '经历' + ($index + 1) +'不能为空', trigger: 'blur'}">
+                           :label="($index + 1)+'. '">
     
                     <Row style="margin-bottom:10px;">
                         <i-col span="8">
@@ -74,7 +68,7 @@
                         <i-col span="4"
                                offset="1">
                             <i-button type="warning"
-                                      @click="removeItem(formInline.eduction,$index)">删除</i-button>
+                                      @click="removeItem(formInlineComputed.eduction,$index)">删除</i-button>
                         </i-col>
                     </Row>
     
@@ -86,7 +80,7 @@
                                       style="border-color:green;"
                                       long
                                       icon="plus-round"
-                                      @click="addItem(formInline.eduction)">新增</i-button>
+                                      @click="addItem(formInlineComputed.eduction)">新增</i-button>
                         </i-col>
                     </Row>
                 </Form-item>
@@ -95,11 +89,9 @@
             <div class="pratice common"
                  id="prize">
                 <h5 class="title">获奖情况</h5>
-                <Form-item v-for="item in formInline.prize"
+                <Form-item v-for="item in formInlineComputed.prize"
                            track-by="$index"
-                           :label="($index + 1)+'. '"
-                           :prop="'prize.'+$index+'.content'"
-                           :rules="{required: true, message: '情况1' + ($index + 1) +'不能为空', trigger: 'blur'}">
+                           :label="($index + 1)+'. '">
                     <Row style="margin-bottom:10px;">
                         <i-col span="8">
                             <Date-picker type="date"
@@ -115,7 +107,7 @@
                         <i-col span="4"
                                offset="1">
                             <i-button type="warning"
-                                      @click="removeItem(formInline.prize,$index)">删除</i-button>
+                                      @click="removeItem(formInlineComputed.prize,$index)">删除</i-button>
                         </i-col>
                     </Row>
     
@@ -127,7 +119,7 @@
                                       style="border-color:green;"
                                       long
                                       icon="plus-round"
-                                      @click="addItem(formInline.prize)">新增</i-button>
+                                      @click="addItem(formInlineComputed.prize)">新增</i-button>
                         </i-col>
                     </Row>
                 </Form-item>
@@ -136,11 +128,9 @@
             <div class="pratice common"
                  id="pratice">
                 <h5 class="title">实习经历</h5>
-                <Form-item v-for="item in formInline.pratice"
+                <Form-item v-for="item in formInlineComputed.pratice"
                            track-by="$index"
-                           :label="($index + 1)+'. '"
-                           :prop="'pratice.'+$index+'.content'"
-                           :rules="{required: true, message: '经历' + ($index + 1) +'不能为空', trigger: 'blur'}">
+                           :label="($index + 1)+'. '">
                     <Row style="margin-bottom:10px;">
                         <i-col span="8">
                             <Date-picker type="date"
@@ -153,16 +143,25 @@
                                          :value.sync="item.end"></Date-picker>
                         </i-col>
                     </Row>
-                    <Row>
+                    <Row style="margin-bottom:10px;">
                         <i-col span="18">
                             <i-input type="text"
                                      :value.sync="item.content"
-                                     placeholder="请输入..."></i-input>
+                                     placeholder="单位名称"></i-input>
+                        </i-col>
+                    </Row>
+    
+                    <Row>
+                        <i-col span="18">
+                            <i-input type="textarea"
+                                     :value.sync="item.mainwork"
+                                     placeholder="主要工作 ..."
+                                     :autosize="{minRows: 5,maxRows: 5}"></i-input>
                         </i-col>
                         <i-col span="4"
                                offset="1">
                             <i-button type="warning"
-                                      @click="removeItem(formInline.pratice,$index)">删除</i-button>
+                                      @click="removeItem(formInlineComputed.pratice,$index)">删除</i-button>
                         </i-col>
                     </Row>
     
@@ -174,7 +173,7 @@
                                       style="border-color:green;"
                                       long
                                       icon="plus-round"
-                                      @click="addItem(formInline.pratice)">新增</i-button>
+                                      @click="addItem(formInlineComputed.pratice)">新增</i-button>
                         </i-col>
                     </Row>
                 </Form-item>
@@ -185,7 +184,7 @@
                           :style="{width:'25%'}">上一步
                 </i-button>
                 <i-button type="primary"
-                          @click="next('formInline')"
+                          @click="next()"
                           :style="{width:'25%'}">下一步
                 </i-button>
             </Form-item>
@@ -195,58 +194,51 @@
 </template>
 
 <script>
-import { routerGo, setSignInModal } from '../../vuex/actions.js'
+import { routerGo, setSignInModal, completeKeyInfo, setCurrentActiveKey } from '../../vuex/actions.js'
 export default {
     data() {
-        return {
-            formInline: {
-                skills: ["精通JavaScript", "熟练算法和数据结构"],
-                eduction: [{
-                    start: "",
-                    end: "",
-                    content: "西安电子科技大学本科"
-                }],
-                prize: [{
-                    time: "",
-                    content: ""
-                }],
-                pratice: [{
-                    start: "",
-                    end: "",
-                    content: "",
-                    mainwork: ""
-                }]
+        return {};
+    },
+    computed: {
+        formInlineComputed: function () {
+            return {
+                skills: this.currentStudent ? this.currentStudent.skills || [] : [],
+                eduction: this.currentStudent ? this.currentStudent.eduction || [] : [],
+                prize: this.currentStudent ? this.currentStudent.prize || [] : [],
+                pratice: this.currentStudent ? this.currentStudent.pratice || [] : []
             }
         }
     },
     methods: {
         addItem(item) {
             switch (item) {
-                case this.formInline.skills: {
-                    item.push("")
+                case this.formInlineComputed.skills: {
+                    console.log(this.formInlineComputed.skills);
+                    this.formInlineComputed.skills.push("")
                     return;
                 }
-                case this.formInline.eduction: {
-                    item.push({
+                case this.formInlineComputed.eduction: {
+                    console.log(this.formInlineComputed.eduction);
+                    this.formInlineComputed.eduction.push({
                         start: "",
                         end: "",
                         content: ""
                     })
                     return;
                 }
-                case this.formInline.prize: {
-                    item.push({
+                case this.formInlineComputed.prize: {
+                    this.formInlineComputed.prize.push({
                         time: "",
                         content: ""
                     })
                     return;
                 }
-                case this.formInline.pratice: {
-                    item.push({
+                case this.formInlineComputed.pratice: {
+                    this.formInlineComputed.pratice.push({
                         start: "",
                         end: "",
                         content: "",
-                        mainword: ""
+                        mainwork: ""
                     })
                     return;
                 }
@@ -256,22 +248,31 @@ export default {
         removeItem(item, index) {
             item.splice(index, 1);
         },
-        prev() { },
-        next(name) {
-            console.log(name);
-            this.$refs[name].validate((valid) => {
-                if (valid) {
-                    this.$Message.success('提交成功!');
-                } else {
-                    this.$Message.error('表单验证失败!');
+        prev() {
+            this.routerGo('/basic-info');
+        },
+        next() {
+            this.completeKeyInfo({
+                email: this.currentStudent.email,
+                skills: this.formInlineComputed.skills,
+                eduction: this.formInlineComputed.eduction,
+                prize: this.formInlineComputed.prize,
+                pratice: this.formInlineComputed.pratice,
+            }).then(res => {
+                if (res.ok) {
+                    this.routerGo('/my');
                 }
+            }).catch(err => {
+                this.$Message.error("更新失败，请重试");
             })
         }
     },
     created() {
+        this.setCurrentActiveKey(4);
         if (!this.currentStudent) {
             this.setSignInModal(true);
         }
+        this.formInline = this.formInlineComputed
     },
     vuex: {
         getters: {
@@ -279,9 +280,12 @@ export default {
         },
         actions: {
             routerGo,
-            setSignInModal
+            setSignInModal,
+            completeKeyInfo,
+            setCurrentActiveKey
         }
     }
+
 }
 
 
@@ -313,6 +317,10 @@ export default {
             line-height: 23px;
             font-size: 20px;
             font-weight: 300;
+        }
+        .ivu-input {
+            resize: none;
+            text-indent: 8px;
         }
     }
 }

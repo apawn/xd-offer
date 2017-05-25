@@ -22,6 +22,7 @@ export default {
     'offer-footer': footer
   }
 }
+
 </script>
 
 <style lang="less">

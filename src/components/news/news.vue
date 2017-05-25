@@ -24,19 +24,23 @@
 </template>
 
 <script>
-import { routerGo } from '../../vuex/actions.js'
+import { routerGo, setCurrentActiveKey } from '../../vuex/actions.js'
 export default {
     methods: {
         routerHere(itemId) {
             this.routerGo(`/announcements/${itemId}`);
         }
     },
+    created() {
+        this.setCurrentActiveKey(3);
+    },
     vuex: {
         getters: {
             announcements: state => state.announcements
         },
         actions: {
-            routerGo
+            routerGo,
+            setCurrentActiveKey
         }
     }
 }

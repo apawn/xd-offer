@@ -27,7 +27,7 @@
                 <Date-picker type="date"
                              placeholder="请输入"
                              :value.sync="formInline.birthday"
-                             format="yyyy年MM月dd日">
+                             format="yyyy-MM-dd">
                 </Date-picker>
             </Form-item>
     
@@ -77,19 +77,10 @@
 </template>
 
 <script>
-import { setSignInModal, routerGo, completeBasicInfo } from '../../vuex/actions.js'
+import { setSignInModal, routerGo, completeBasicInfo, setCurrentActiveKey } from '../../vuex/actions.js'
 export default {
     data() {
         return {
-            formInline: {
-                birthday: '',
-                phone: '15845565860',
-                collage: "软件学院",
-                specity: "软件工程",
-                highest: 'undergraduate',
-                gender: 'male',
-                introduction: "工作：认真负责，踏实稳重，具有很强的团队合作精神； 学习：求知欲强，勤奋好学，学习能力强； 生活：热爱生活，为人正直善良，积极进取，敢于挑战自我。"
-            },
             rulerInline: {
                 name: [
                     { required: true, message: '请填写姓名', trigger: 'blur' }
@@ -118,6 +109,20 @@ export default {
             }
         }
     },
+    computed: {
+        formInline: function () {
+            return {
+                birthday: new Date(this.currentStudent ? this.currentStudent.birthday || "1995/08/10" : new Date().toLocaleDateString()),
+                phone: this.currentStudent ? this.currentStudent.phone : '15860',
+                collage: this.currentStudent ? this.currentStudent.collage : "软件学院",
+                specity: this.currentStudent ? this.currentStudent.speciality : "软件工程",
+                highest: this.currentStudent ? this.currentStudent.highest : 'undergraduate',
+                gender: this.currentStudent ? this.currentStudent.gender : 'male',
+                introduction: this.currentStudent ? this.currentStudent.introduction : "工作：认真负责，踏实稳重，具有很强的团队合作精神； 学习：求知欲强，勤奋好学，学习能力强； 生活：热爱生活，为人正直善良，积极进取，敢于挑战自我。"
+            }
+        }
+
+    },
     methods: {
         next(name) {
             this.$refs[name].validate((valid) => {
@@ -134,8 +139,8 @@ export default {
                         introduction: this.formInline.introduction
                     }).then(res => {
                         if (res.ok) {
-                            console.log('shit');
-                            // this.routerGo('/key-info');
+                            // console.log('shit');
+                            this.routerGo('/key-info');
                         } else {
                             this.$Message.error('出错，请重试');
                         }
@@ -151,6 +156,7 @@ export default {
         }
     },
     created() {
+        this.setCurrentActiveKey(4);
         console.log(this.currentStudent);
         if (!this.currentStudent) {
             this.setSignInModal(true);
@@ -163,8 +169,8 @@ export default {
         actions: {
             routerGo,
             setSignInModal,
-            completeBasicInfo
-
+            completeBasicInfo,
+            setCurrentActiveKey
         }
     }
 }

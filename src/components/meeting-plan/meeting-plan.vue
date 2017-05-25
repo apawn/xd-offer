@@ -23,7 +23,7 @@
 </template>
 
 <script>
-import { routerGo } from '../../vuex/actions'
+import { routerGo, setCurrentActiveKey } from '../../vuex/actions'
 
 export default {
     data() {
@@ -33,6 +33,9 @@ export default {
     },
     methods: {
     },
+    created() {
+        this.setCurrentActiveKey(2);
+    },
     vuex: {
         getters: {
             columns: state => state.meetingPlan.columns,
@@ -40,7 +43,8 @@ export default {
             northPlanta: state => state.meetingPlan.northPlan
         },
         actions: {
-            routerGo
+            routerGo,
+            setCurrentActiveKey
         }
     }
 }

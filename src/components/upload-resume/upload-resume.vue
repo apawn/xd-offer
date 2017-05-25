@@ -29,7 +29,20 @@
     </div>
 </template>
 
-<script></script>
+<script>
+import { setCurrentActiveKey } from '../../vuex/actions.js'
+export default {
+    created() {
+        this.setCurrentActiveKey("");
+    },
+    vuex: {
+        actions: {
+            setCurrentActiveKey
+        }
+    }
+
+}
+</script>
 
 <style lang="less">
 .upload-resume {

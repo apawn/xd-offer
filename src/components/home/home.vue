@@ -39,7 +39,7 @@
 </template>
 
 <script>
-import { routerGo, getCurrentPage, getCompaniesCount, getCurrentCompanyDetail } from '../../vuex/actions.js'
+import { routerGo, getCurrentPage, getCompaniesCount, getCurrentCompanyDetail, setCurrentActiveKey } from '../../vuex/actions.js'
 export default {
     data() {
         return {
@@ -60,6 +60,7 @@ export default {
     },
 
     created() {
+        this.setCurrentActiveKey(1);
         this.getCompaniesCount().then(res => {
             if (res.count > 0) {
                 this.getCurrentPage(1).catch(err => {
@@ -85,7 +86,7 @@ export default {
             getCurrentPage,
             getCompaniesCount,
             getCurrentCompanyDetail,
-
+            setCurrentActiveKey
         }
     }
 

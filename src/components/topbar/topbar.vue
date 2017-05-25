@@ -48,10 +48,10 @@
                                      placeholder="请输入">
                             </i-input>
                         </Form-item>
-                        <Form-item type="password"
-                                   label="密码"
+                        <Form-item label="密码"
                                    prop="password">
                             <i-input :value.sync="formInline.password"
+                                     type="password"
                                      placeholder="请输入">
                             </i-input>
                         </Form-item>
@@ -83,8 +83,8 @@ export default {
         return {
             modal_loading: false,
             formInline: {
-                user: "666",
-                password: "555"
+                user: "812647756@qq.com",
+                password: "lllllll"
             },
             ruleInline: {
                 user: [

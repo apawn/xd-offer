@@ -1,6 +1,5 @@
 <template>
     <div class="sign-up">
-    
         <i-form :model="formInline"
                 :rules="rulerInline"
                 :label-width="100">
@@ -61,11 +60,10 @@
 </template>
 
 <script>
-import { getVertifyCodeAction, signUpAction, routerGo, signIn } from '../../vuex/actions'
+import { getVertifyCodeAction, signUpAction, routerGo, signIn, setCurrentActiveKey } from '../../vuex/actions'
 
 export default {
     data() {
-
         const validatePassCheck = (rule, value, callback) => {
             if (value === '') {
                 callback(new Error('请确认密码'));
@@ -165,6 +163,9 @@ export default {
             })
         }
     },
+    created() {
+        this.setCurrentActiveKey("");
+    },
     vuex: {
         getters: {
             // user: state => state.session
@@ -173,7 +174,8 @@ export default {
             getVertifyCodeAction,
             signUpAction,
             signIn,
-            routerGo
+            routerGo,
+            setCurrentActiveKey
         }
     }
 }

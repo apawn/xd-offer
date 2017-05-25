@@ -225,20 +225,27 @@ export const completeBasicInfo = ({ dispatch }, basicInfo) => {
 
 export const completeKeyInfo = ({ dispatch }, keyInfo) => {
     return new Promise((resolve, reject) => {
-        fetch('/api/completebasicinfo', {
+        fetch('/api/completekeyinfo', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json, text/plain, */*',
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-
+                email: keyInfo.email,
+                skills: keyInfo.skills,
+                eduction: keyInfo.eduction,
+                prize: keyInfo.prize,
+                pratice: keyInfo.pratice,
             })
         }).then(res => res.json()).then(res => {
-
+            resolve(res);
         }).catch(err => {
-
+            reject(err);
         })
     })
 }
 
+export const setCurrentActiveKey = ({ dispatch }, activeKey) => {
+    dispatch('SET_CURRENT_ACTIVE_KEY', activeKey + '');
+}

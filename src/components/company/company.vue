@@ -71,7 +71,7 @@
 
 
 <script>
-import { getCurrentCompanyDetail, commentCompany, setSignInModal, deliveryAction } from '../../vuex/actions.js'
+import { getCurrentCompanyDetail, commentCompany, setSignInModal, deliveryAction, setCurrentActiveKey } from '../../vuex/actions.js'
 
 export default {
     data() {
@@ -138,6 +138,7 @@ export default {
         }
     },
     created() {
+        this.setCurrentActiveKey(1);
         if (this.company.name) {
             document.title = this.company.name;
         } else {
@@ -154,7 +155,8 @@ export default {
             getCurrentCompanyDetail,
             commentCompany,
             setSignInModal,
-            deliveryAction
+            deliveryAction,
+            setCurrentActiveKey
         }
     }
 }

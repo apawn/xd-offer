@@ -12,8 +12,8 @@
             <i-col class="nav-wrapper"
                    span="16">
                 <Menu mode="horizontal"
-                      :theme="light"
-                      active-key="1">
+                      theme="light"
+                      :active-key="currentActiveKey">
                     <Menu-item key="1"
                                @click="routerGo('/home')">
                         首页
@@ -49,9 +49,11 @@ export default {
     },
 
     created() {
-
     },
     vuex: {
+        getters: {
+            currentActiveKey: state => state.currentActiveKey
+        },
         actions: {
             routerGo
         }
