@@ -13,6 +13,7 @@ import basicInfo from './components/basic-info/basic-info';
 import keyInfo from './components/key-info/key-info.vue'
 import uploadResume from './components/upload-resume/upload-resume'
 import forget from './components/forget/forget'
+import newsDetail from './components/news-detail/news-detail'
 
 // home 子路由
 import company from './components/company/company'
@@ -48,6 +49,10 @@ router.map({
   '/announcements': {
     name: 'news',
     component: news
+  },
+  '/announcements/:currentnews': {
+    name: 'news-detail',
+    component: newsDetail
   },
   '/my': {
     name: 'my',

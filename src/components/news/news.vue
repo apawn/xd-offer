@@ -1,46 +1,46 @@
 <template>
     <div class="announcements">
         <ul>
-            <li v-for="item in announcements">
+            <li v-for="item in allNews">
                 <Row>
                     <i-col span="18"
                            class="content">
-                        <a @click="routerHere(item.id)">{{item.header}}</a>
+                        <a @click="itemClick(item)">{{item.header}}</a>
                     </i-col>
                     <i-col span="6"
                            class="time">
                         {{item.time}}
                     </i-col>
                 </Row>
-    
             </li>
         </ul>
-        <Page :current="2"
-              :total="50"
-              simple
-              class="pager"></Page>
-    
     </div>
 </template>
 
 <script>
-import { routerGo, setCurrentActiveKey } from '../../vuex/actions.js'
+// 在这里下载所有的消息
+import { routerGo, setCurrentActiveKey, setCurrentNews, getAllNews } from '../../vuex/actions.js'
 export default {
     methods: {
-        routerHere(itemId) {
-            this.routerGo(`/announcements/${itemId}`);
+        itemClick(item) {
+            console.log(item.id);
+            this.routerGo(`/announcements/${item.id}`);
+            this.setCurrentNews(item)
         }
     },
     created() {
         this.setCurrentActiveKey(3);
+        this.getAllNews();
     },
     vuex: {
         getters: {
-            announcements: state => state.announcements
+            allNews: state => state.allNews
         },
         actions: {
             routerGo,
-            setCurrentActiveKey
+            setCurrentActiveKey,
+            setCurrentNews,
+            getAllNews
         }
     }
 }
@@ -50,18 +50,15 @@ export default {
 .announcements {
     margin: 0 auto;
     margin-top: 45px;
-    width: 50%;
+    margin-bottom: 80px;
+    width: 70%;
     min-width: 400px;
-    min-height: 700px;
+    line-height: 25px;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 50px;
     .content {}
     .time {
-        text-align: right;
-    }
-    .pager {
-        margin-top: 50px;
-        margin-bottom: 100px;
-        display: flex;
-        justify-content: center;
+        text-align: left;
     }
 }
 </style>

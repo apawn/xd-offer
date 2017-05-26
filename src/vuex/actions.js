@@ -249,3 +249,23 @@ export const completeKeyInfo = ({ dispatch }, keyInfo) => {
 export const setCurrentActiveKey = ({ dispatch }, activeKey) => {
     dispatch('SET_CURRENT_ACTIVE_KEY', activeKey + '');
 }
+
+export const setCurrentNews = ({ dispatch }, current) => {
+    dispatch('SET_CURRENT_NEWS', current);
+}
+
+export const getAllNews = ({ dispatch }) => {
+    return new Promise((resolve, reject) => {
+        fetch('/api/getallnews', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json, text/plain, */*',
+                'Content-Type': 'application/json'
+            }
+        }).then(res => res.json()).then(res => {
+            dispatch('SET_ALL_NEWS', res);
+        }).catch(err => {
+            reject(err);
+        })
+    })
+}

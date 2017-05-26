@@ -54,7 +54,14 @@ export default {
     },
     UPDATE_CURRENT_STUDENT(state, currentStudent) {
         state.session = currentStudent
+    },
+    // 设置当前公告
+    SET_CURRENT_NEWS(state, current) {
+        state.currentNews = current || {}
+    },
+    //  设置所有公告
+    SET_ALL_NEWS(state, news) {
+        state.allNews = news || {}
     }
-
-
 }
+
