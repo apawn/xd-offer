@@ -125,30 +125,7 @@ export const commentCompany = ({ dispatch }, email, content) => {
     })
 }
 
-export const deliveryAction = ({ dispatch }, _studentEmail, _companyemail, _position) => {
-    return new Promise((resolve, reject) => {
-        fetch('/api/delivery', {
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json, text/plain, */*',
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                studentEmail: _studentEmail,
-                companyemail: _companyemail,
-                position: _position
-            })
-        }).then(res => res.json()).then(res => {
-            if (res.ok) {
-                if (res.company) {
-                    dispatch('SET_CURRENT_COMPANY_DETAIL', res.company);
-                }
-            }
-        }).catch(err => {
-            return;
-        })
-    });
-}
+
 
 
 // 得到验证码
@@ -269,3 +246,70 @@ export const getAllNews = ({ dispatch }) => {
         })
     })
 }
+
+export const studentGetInvitations = ({ dispatch }, email) => {
+    return new Promise((resolve, reject) => {
+        fetch('/api/studentGetInvitations', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json, text/plain, */*',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                email: email
+            })
+        }).then(res => res.json()).then(res => {
+            dispatch('SET_INVITATIONS_STUDENT', res || []);
+        }).catch(err => {
+            reject(err);
+            dispatch('SET_INVITATIONS_STUDENT', [])
+        })
+    })
+}
+
+export const studentHasDeliveried = ({ dispatch }, email) => {
+    return new Promise((resolve, reject) => {
+        fetch('/api/studentHasDeliveried', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json, text/plain, */*',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                email: email
+            })
+        }).then(res => res.json()).then(res => {
+            dispatch('SET_DELIVERIED_STUDENT', res || []);
+        }).catch(err => {
+            reject(err);
+            dispatch('SET_DELIVERIED_STUDENT', [])
+        })
+    })
+
+}
+export const deliveryAction = ({ dispatch }, studentEmail, companyemail, position) => {
+    return new Promise((resolve, reject) => {
+        fetch('/api/delivery', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json, text/plain, */*',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                studentEmail: studentEmail,
+                companyemail: companyemail,
+                position: position
+            })
+        }).then(res => res.json()).then(res => {
+            if (res.ok) {
+                console.log(companyemail, position);
+                dispatch('DELIVERY_SUCCESS', companyemail, position);
+            }
+        }).catch(err => {
+            console.log(err);
+            return;
+        })
+    });
+}
+
+

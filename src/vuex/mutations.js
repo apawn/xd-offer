@@ -62,6 +62,26 @@ export default {
     //  设置所有公告
     SET_ALL_NEWS(state, news) {
         state.allNews = news || {}
+    },
+    SET_INVITATIONS_STUDENT(state, companys) {
+        state.invitationsCompany = companys || []
+    },
+    SET_DELIVERIED_STUDENT(state, companys) {
+        state.deliveriedCompany = companys || []
+    },
+
+
+    DELIVERY_SUCCESS(state, email, position) {
+        state.session.resumeDelivered.push({
+            email: email,
+            position: position
+        });
+        var company = state.currentCompanies.find(item => item.email == email);
+        if (company) {
+            console.log(company);
+            state.deliveriedCompany.push(company);
+        }
+
     }
 }
 

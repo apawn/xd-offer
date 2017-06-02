@@ -15,6 +15,8 @@ import uploadResume from './components/upload-resume/upload-resume'
 import forget from './components/forget/forget'
 import newsDetail from './components/news-detail/news-detail'
 
+import invations from './components/invations/invations.vue'
+import deliveried from './components/deliveried/deliveried.vue'
 // home 子路由
 import company from './components/company/company'
 
@@ -81,6 +83,12 @@ router.map({
   '/forget': {
     name: 'forget',
     component: forget
+  },
+  '/invations/': {
+    component: invations
+  },
+  '/deliveried': {
+    component: deliveried
   }
 
 })

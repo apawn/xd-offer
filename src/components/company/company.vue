@@ -103,40 +103,39 @@ export default {
                 return;
             }
         },
-
         hasDelivered(position) {
             if (!this.user) {
                 return {
-                    type: 'primary',
-                    content: '现在投递',
-                    disable: false
+                    type: 'success',
+                    content: '请登录',
+                    disable: true
                 }
             }
-            var positions = this.company.position,
-                flag,
-                receives;
-            for (let i = 0; i < positions.length; i++) {
-                if (positions[i].name === position) {
-                    receives = positions[i].received;
-                    for (let j = 0; j < receives.length; j++) {
-                        if (receives[j].studentEmail === this.user.email) {
-                            return {
-                                type: 'success',
-                                content: '已经投递',
-                                disabled: true
-                            }
-                        }
+            var hasDeliveried = this.user.resumeDelivered,
+                email = this.company.email;
+            for (var i = 0; i < hasDeliveried.length; i++) {
+                var item = hasDeliveried[i];
+                // console.log(item);
+                console.log(position);
+                console.log("-----");
+                console.log(email);
+                if (item.email == email && item.position == position) {
+                    return {
+                        type: 'success',
+                        content: '已经投递',
+                        disabled: true
                     }
                 }
             }
+
             return {
-                type: 'primary',
+                type: 'success',
                 content: '现在投递',
                 disable: false
             };
-
-        }
+        },
     },
+
     created() {
         this.setCurrentActiveKey(1);
         if (this.company.name) {

@@ -3,6 +3,12 @@ export default {
     totalCount: 0,
     // 当前页码
     currentPage: 1,
+
+    invitationsCompany: [],
+    deliveriedCompany: [],
+
+
+
     // 当前页的公司
     currentCompanies: [],
 
@@ -13,6 +19,8 @@ export default {
     currentNews: {},
     allNews: {},
     // 当前用户
+
+
 
     session: null,
     // 是否弹出登录对话框

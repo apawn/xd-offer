@@ -9,11 +9,11 @@
             <i-col span="18"
                    class="option-container">
                 <a v-if="session"
-                   class="option">消息</a>
+                   class="option"
+                   @click="routerGo('/invations')">收到邀请</a>
                 <a v-if="session"
-                   class="option">我的简历</a>
-                <a v-if="session"
-                   class="option">投递记录</a>
+                   class="option"
+                   @click="routerGo('/deliveried')">投递记录</a>
                 <a v-if="session"
                    class="option">{{session.name}}</a>
                 <a v-if="!session"
@@ -77,13 +77,16 @@
 </template>
 
 <script>
-import { signIn, signOut, routerGo, setSignInModal } from '../../vuex/actions.js'
+import {
+    signIn, signOut, routerGo, setSignInModal, studentGetInvitations,
+    studentHasDeliveried
+} from '../../vuex/actions.js'
 export default {
     data() {
         return {
             modal_loading: false,
             formInline: {
-                user: "812647756@qq.com",
+                user: "test@qq.com",
                 password: "lllllll"
             },
             ruleInline: {
@@ -107,8 +110,10 @@ export default {
                 if (res.ok) {
                     this.$Message.success('登录成功');
                     this.setSignInModal(false);
+                    this.studentGetInvitations(this.formInline.user);
+                    this.studentHasDeliveried(this.formInline.user);
                 } else {
-                    this.$Message.success('登录失败');
+                    this.$Message.error('登录失败');
                 }
                 this.modal_loading = false;
             }).catch(err => {
@@ -132,7 +137,10 @@ export default {
             routerGo,
             signInActions: signIn,
             signOut,
-            setSignInModal
+            setSignInModal,
+            studentGetInvitations,
+            studentHasDeliveried
+
         }
     }
 }
